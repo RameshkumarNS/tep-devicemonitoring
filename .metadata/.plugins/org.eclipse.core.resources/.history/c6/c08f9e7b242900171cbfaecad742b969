@@ -1,0 +1,66 @@
+/**
+ * @description 
+ */
+void rulefunction RuleFunctions.Preprocessors.SensorEvent.DeviceReadingPreprocessor {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+	}
+	body {
+		//Setup logging
+		DateTime startDateTime = DateTime.now();
+		String functionName = "RuleFunctions.Preprocessors.SensorEvent.DeviceReadingPreprocessor";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		String	eventStr = sensorReadingEvent@payload;
+		String	deviceExtId = XPath.evalAsString("xpath://<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xpath>\n    <expr>concat($sensorReadingEvent/payload/xsd2:SensorEvent/xsd2:SensorInformation/xsd2:SensorType, \'-\', $sensorReadingEvent/payload/xsd2:SensorEvent/xsd2:SensorInformation/xsd2:Key)</expr>\n    <namespaces>\n        <namespace URI=\"http://www.w3.org/1999/XSL/Transform\" pfx=\"xsl\"/>\n        <namespace URI=\"http://www.nscorp.com/sensor/telemetryevent/v1.0\" pfx=\"xsd2\"/>\n        <namespace URI=\"http://www.w3.org/2001/XMLSchema\" pfx=\"xsd\"/>\n    </namespaces>\n    <variables>\n        <variable>sensorReadingEvent</variable>\n        <variable>sensorReadingEvent</variable>\n    </variables>\n</xpath>");
+		String	str = DateTime.getYear(startDateTime) + ":" + DateTime.getMonth(startDateTime) + ":" + DateTime.getDay(startDateTime) + ":" + DateTime.getHour(startDateTime) + "";
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "DeviceReading Preprocessor started,"+ " at:[" + str +"],"+" device-extId: " + deviceExtId + "\n event:" + eventStr, null);
+		sensorReadingEvent.DeviceReading_extId=deviceExtId;
+		Concepts.sensorReading	sensorReading=null;
+		
+		try{
+			long startTimeMs = DateTime.getTimeInMillis(startDateTime);
+			
+			boolean lockObtained = RuleFunctions.SharedFunctions.Lock(deviceExtId);
+			sensorReadingEvent.WERRulesFired="";
+			if(!lockObtained){
+				//If lock cannot be obtained after the configured number of attempts, 
+				//publish the event back to the queue
+				Event.sendEvent(sensorReadingEvent);
+				Event.consumeEvent(sensorReadingEvent);
+			}else { //if lockObtained is true
+				SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelDebug,functionName  , "Lock Obtained for device-extId: " + deviceExtId, null);
+				
+				//DateTime eventDateTime = SharedLib.RuleFunctions.GetDateTimeInEasternTZ(sensorReadingEvent.EventDateTime, sensorReadingEvent.EventTimeZone);
+				sensorReading = Cluster.DataGrid.CacheLoadConceptByExtId(deviceExtId, false);
+								
+				if(sensorReading == null) { 
+					//Create Sensor concept
+					sensorReading = Instance.createInstance("xslt://{{/Concepts/sensorReading}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:ns=\"http://www.nscorp.com/sensor/telemetryevent/v1.0\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" version=\"1.0\" exclude-result-prefixes=\"xsl ns xsd\">\n    <xsl:output method=\"xml\"/>\n    <xsl:param name=\"sensorReadingEvent\"/>\n    <xsl:template match=\"/\">\n        <createObject>\n            <object>\n                <xsl:attribute name=\"extId\">\n                    <xsl:value-of select=\"concat($sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:SensorType,\'-\', $sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:Key)\"/>\n                </xsl:attribute>\n                <xsl:if test=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:Key\">\n                    <deviceKey>\n                        <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:Key\"/>\n                    </deviceKey>\n                </xsl:if>\n                <xsl:if test=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:SensorType\">\n                    <deviceType>\n                        <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:SensorType\"/>\n                    </deviceType>\n                </xsl:if>\n            </object>\n        </createObject>\n    </xsl:template>\n</xsl:stylesheet>");
+					Concepts.GVs	GVs = Instance.getByExtId("DeviceMonitoring-GVs");
+					sensorReading.operationMode = GVs.LearningTag;
+					sensorReading.StatsMethodName = "SD";// bases for making it configurable per device, likely using properties file or can come from database
+					System.debugOut("New SensorReading concept created:\n");
+				}else{
+					System.debugOut("Existing SensorReading concept loaded from Cache:\n");
+					//TODO: TBD as needed
+				}
+
+			} // closing else if(lockObtained)				
+			System.debugOut("\n" + "device reading is now: \n" + Instance.serializeUsingDefaults(sensorReading) + "\n");
+
+			long end = DateTime.getTimeInMillis(DateTime.now());		
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "Executed preprocessor in: "+(end-startTimeMs)+" milliseconds", null);
+		}catch(Exception e){
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "Exception: " + e, null);
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelError,functionName  , "Exception while processing deviceReading event: " + e@message, e@stackTrace);
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelWarning,functionName  , "Incoming payload: "+ eventStr , null);
+			Event.consumeEvent(sensorReadingEvent);
+			if(sensorReading != null)
+				Instance.deleteInstance(sensorReading);
+			throw Exception.newException("Exception", e@stackTrace, e@cause);		
+		}
+	}
+}

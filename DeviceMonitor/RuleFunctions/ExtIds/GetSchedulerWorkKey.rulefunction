@@ -1,0 +1,19 @@
+/**
+ * @description 
+ */
+String rulefunction RuleFunctions.ExtIds.GetSchedulerWorkKey {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+		String sensorId;
+		String charName;
+	}
+	body {
+		String functionName = "RuleFunctions.ExtIds.GetSchedulerWorkKey";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "Rulefunction started, equip: " + sensorId + "-" + charName, null);
+		
+		return "SensTimeout-" + sensorId + "-" + charName;
+	}
+}

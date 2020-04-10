@@ -1,0 +1,28 @@
+/**
+ * @description 
+ * @author GAATLITEARD864L
+ * 	when a new device reading data element is received, remove the oldest data element and insert the new one
+ */
+ 
+rule Rules.Init.Stateful.ErrorSampleSizeExceeded {
+	attribute {
+		priority = 5;
+		forwardChain = true;
+	}
+	declare {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+		Concepts.sensorReading sensorReading;
+		Concepts.GVs	GVs;
+	}
+	when {
+		sensorReading.operationMode == GVs.MonitoringTag;
+		sensorReading@extId == sensorReadingEvent.DeviceReading_extId;
+		sensorReading.readingValues@length > GVs.LearningSampleSize;
+	}
+	then {
+		String functionName = "Rules.Init.Stateful.ErrorSampleSizeExceeded";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "Rule started, Device: " + sensorReading@extId, null);
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "ERROR DETECTED [ SMAPLE SIZE EXCEEDED ], Device: " + sensorReading@extId, null);
+	}
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><channel:Channel xmlns:channel="http:///com/tibco/cep/designtime/core/model/service/channel" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:designtime="http:///com/tibco/cep/designtime/core/model/designtime_ontology.ecore" xmi:version="2.0" namespace="/Channels/" folder="/Channels/" name="DeviceRecievingChannel" description="" GUID="A15A1451-3EE2-085F-C4EA-D9B9122CA57C" ownerProjectName="DeviceMonitor">
+  <driver configMethod="REFERENCE" reference="/SharedResources/Connections/JMS/SharedMQConnection.sharedjmscon" label="JMS" channel="/">
+    <destinations folder="/Channels/DeviceRecievingChannel/" name="ReadingRecievingDestination" description="" GUID="DD2AECCE-7D9F-9783-476E-9E5234F45AD4" ownerProjectName="DeviceMonitor" eventURI="/Events/IncomingEvents/DeviceReading" serializerDeserializerClass="com.tibco.cep.driver.jms.serializer.BytesMessageSerializer" driverConfig="//@driver">
+      <properties>
+        <properties xsi:type="designtime:SimpleProperty" name="Queue" value="true"/>
+        <properties xsi:type="designtime:SimpleProperty" name="Name" value="%%SharedResources/Connections/JMS/SensorInput/SensorInputQueue%%"/>
+        <properties xsi:type="designtime:SimpleProperty" name="Selector" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="DeliveryMode" value="2"/>
+        <properties xsi:type="designtime:SimpleProperty" name="AckMode" value="2"/>
+        <properties xsi:type="designtime:SimpleProperty" name="Priority" value="4"/>
+        <properties xsi:type="designtime:SimpleProperty" name="TTL" value="0"/>
+        <properties xsi:type="designtime:SimpleProperty" name="DurableSuscriberName" value="%%Deployment%%:%%EngineName%%:%%SessionName%%:%%ChannelURI%%:%%DestinationName%%"/>
+      </properties>
+    </destinations>
+    <driverType xsi:type="channel:DriverTypeInfo" driverTypeName="JMS"/>
+  </driver>
+</channel:Channel>

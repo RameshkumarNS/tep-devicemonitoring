@@ -1,0 +1,74 @@
+/**
+ * @description 
+ * @author GAATLITEARD864L
+ */
+rule Rules.OffLeaning.CalculateDeviceStats {
+	attribute {
+		priority = 5;
+		forwardChain = true;
+	}
+	declare {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+		Concepts.sensorReading sensorReading;
+		Concepts.GVs	GVs;
+	}
+	when {
+		sensorReading.operationMode == GVs.LearningTag;
+		sensorReading.readingValues@length == GVs.LearningSampleSize;
+		sensorReading@extId == sensorReadingEvent.DeviceReading_extId;
+		sensorReading.StatsMethodName == "SD";// bases for making it configurable per device
+
+	}
+	then {
+		//Setup logging
+		String functionName = "Rules.OffLeaning.CalculateDeviceStats";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "Rule started, Device: " + sensorReading@extId, null);
+		Events.OutgoingEvents.DeviceLimitSetNotification LimitNotificationEvent=null;
+		DateTime startDateTime = DateTime.now();
+		long startTimeMs = DateTime.getTimeInMillis(startDateTime);
+		
+		try{
+			double mean = 0.0;
+			double variance = 0.0;
+			double sd = 0.0;
+			double sum = 0.0;
+			double sumSq = 0.0;
+			
+			for(int i=0;i<sensorReading.readingValues@length;i++){
+				sum += sensorReading.readingValues[i];				
+			}
+			mean = sum/GVs.LearningSampleSize;
+			
+			for(int i=0;i<sensorReading.readingValues@length;i++){
+				sumSq += (sensorReading.readingValues[i]-mean) * (sensorReading.readingValues[i]-mean);				
+			}
+			
+			variance = sumSq / (GVs.LearningSampleSize-1);
+			sd = Math.sqrt(variance);
+			
+			sensorReading.meanValue = mean;
+			sensorReading.variance = variance;
+			sensorReading.stdDevValue = sd;
+			
+			sensorReading.StatsDateTime = DateTime.now();
+			sensorReading.operationMode = GVs.MonitoringTag;
+			if(GVs.PublishLimits){
+				LimitNotificationEvent = Event.createEvent("xslt://{{/Events/OutgoingEvents/DeviceLimitSetNotification}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:ns1=\"http://www.nscorp.com/sensor/telemetrylimits/v1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:ns=\"http://www.nscorp.com/sensor/telemetryevent/v1.0\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" version=\"1.0\" exclude-result-prefixes=\"xsl ns xsd\">\n    <xsl:output method=\"xml\"/>\n    <xsl:param name=\"sensorReadingEvent\"/>\n    <xsl:param name=\"sensorReading\"/>\n    <xsl:template match=\"/\">\n        <createEvent>\n            <event>\n                <payload>\n                    <ns1:SensorTelemetryLimits>\n                        <ns1:AttributeInformation>\n                            <ns1:SensorType>\n                                <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:SensorType\"/>\n                            </ns1:SensorType>\n                            <ns1:Key>\n                                <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:Key\"/>\n                            </ns1:Key>\n                        </ns1:AttributeInformation>\n                        <ns1:Limits>\n                            <xsl:if test=\"$sensorReading/meanValue\">\n                                <ns1:Mean>\n                                    <xsl:value-of select=\"$sensorReading/meanValue\"/>\n                                </ns1:Mean>\n                            </xsl:if>\n                            <xsl:if test=\"$sensorReading/stdDevValue\">\n                                <ns1:StandardDeviation>\n                                    <xsl:value-of select=\"$sensorReading/stdDevValue\"/>\n                                </ns1:StandardDeviation>\n                            </xsl:if>\n                        </ns1:Limits>\n                    </ns1:SensorTelemetryLimits>\n                </payload>\n            </event>\n        </createEvent>\n    </xsl:template>\n</xsl:stylesheet>");
+				if(Event.sendEvent(LimitNotificationEvent)==null)
+					SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , sensorReading@extId + " ERROR Sending the Limit Notification Event: " + LimitNotificationEvent@payload, null);
+			}
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , sensorReading@extId + "device reading is now-->: \n" + Instance.serializeUsingDefaults(sensorReading), null);
+			long end = DateTime.getTimeInMillis(DateTime.now());
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , sensorReading@extId + " Executed rule in: " + (end-startTimeMs) + "milliseconds", null);
+		}catch(Exception e){
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelError,functionName  , "Exception while processing rule for Device: " + sensorReading@extId + ":" +  e@message, e@stackTrace);
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelWarning,functionName  , "Incoming payload: "+sensorReadingEvent@payload , null);
+			if(LimitNotificationEvent !=null)
+				SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelWarning,functionName  , "Outgoing payload: "+LimitNotificationEvent@payload , null);
+			Event.consumeEvent(sensorReadingEvent);
+ 			Engine.Rtc.abortRTC();
+		}
+		
+	}
+}

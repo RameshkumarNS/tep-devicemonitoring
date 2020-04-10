@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<event:SimpleEvent xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:event="http:///com/tibco/cep/designtime/core/model/event" namespace="/Events/OutgoingEvents/" folder="/Events/OutgoingEvents/" name="OutBaseEvent" description="" GUID="C4D64925-2C77-1CBC-41CE-087E49376FFA" ownerProjectName="DeviceMonitor" superEventPath="" ttlUnits="Seconds">
+  <expiryAction name="OutBaseEvent_expiryAction" ownerProjectName="DeviceMonitor" actionText="" conditionText="">
+    <symbols>
+      <symbolList idName="outbaseevent" type="/Events/OutgoingEvents/OutBaseEvent"/>
+    </symbols>
+  </expiryAction>
+</event:SimpleEvent>

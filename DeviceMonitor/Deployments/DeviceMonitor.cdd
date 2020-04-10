@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cluster xmlns="http://tibco.com/businessevents/configuration/5.1">
+    <revision>
+        <version>115</version>
+        <author>pa3es</author>
+        <date>2017/05/11 11:53:45</date>
+        <comment/>
+    </revision>
+    <name>DeviceMonitor</name>
+    <message-encoding>UTF-8</message-encoding>
+    <object-management>
+        <cache-manager>
+            <provider>
+                <name>TIBCO</name>
+            </provider>
+            <cache-agent-quorum/>
+            <backup-copies>1</backup-copies>
+            <entity-cache-size>10000</entity-cache-size>
+            <discovery-url/>
+            <listen-url/>
+            <remote-listen-url/>
+            <protocol-timeout>-1</protocol-timeout>
+            <read-timeout>60000</read-timeout>
+            <write-timeout>60000</write-timeout>
+            <lock-timeout>-1</lock-timeout>
+            <shoutdown-wait>8500</shoutdown-wait>
+            <workerthreads-count>4</workerthreads-count>
+            <explicit-tuple>true</explicit-tuple>
+            <object-table>
+                <max-size>100000</max-size>
+            </object-table>
+            <backing-store>
+                <persistence-option>Shared All</persistence-option>
+                <cache-aside>true</cache-aside>
+                <cache-loader-class>com.tibco.be.jdbcstore.BECoherenceJdbcStore</cache-loader-class>
+                <enforce-pools>true</enforce-pools>
+                <strategy>jdbc</strategy>
+                <type>DB2</type>
+                <data-store-path/>
+                <persistence-policy>ASYNC</persistence-policy>
+                <parallel-recovery>true</parallel-recovery>
+                <secondary-connection>
+                        %%DbUri2%%
+                        4
+                        8
+                        1
+                </secondary-connection>
+                <primary-connection>
+                    <uri>/SharedResources/Connections/JDBC/BackingStore.sharedjdbc</uri>
+                    <initial-size>4</initial-size>
+                    <max-size>16</max-size>
+                    <min-size>4</min-size>
+                </primary-connection>
+            </backing-store>
+            <domain-objects>
+                <default-mode>cache</default-mode>
+                <check-for-version>true</check-for-version>
+                <constant>false</constant>
+                <enable-tracking>true</enable-tracking>
+                <evict-on-update>false</evict-on-update>
+                <cache-limited>true</cache-limited>
+                <subscribe>true</subscribe>
+                <pre-load-enabled>true</pre-load-enabled>
+                <pre-load-fetch-size>0</pre-load-fetch-size>
+                <pre-load-handles>true</pre-load-handles>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/Events/OutgoingEvents/DeviceAlertEvent</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties/>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/Events/IncomingEvents/DeviceReading</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>DeviceReading_extId</name>
+                            </property>
+                            <property>
+                                <name>WERRulesFired</name>
+                            </property>
+                            <property>
+                                <name>transactionStarttime</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>cache</mode>
+                    <pre-load-fetch-size>10000</pre-load-fetch-size>
+                    <uri>/Concepts/sensorReading</uri>
+                    <backing-store>
+                        <enabled>true</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>deviceKey</name>
+                            </property>
+                            <property>
+                                <name>deviceType</name>
+                            </property>
+                            <property>
+                                <name>readingValues</name>
+                            </property>
+                            <property>
+                                <name>operationMode</name>
+                            </property>
+                            <property>
+                                <name>meanValue</name>
+                            </property>
+                            <property>
+                                <name>stdDevValue</name>
+                            </property>
+                            <property>
+                                <name>StatsDateTime</name>
+                            </property>
+                            <property>
+                                <name>StatsMethodName</name>
+                            </property>
+                            <property>
+                                <name>variance</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/Events/OutgoingEvents/DeviceLimitSetNotification</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties/>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/Concepts/GVs</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>LearningSampleSize</name>
+                            </property>
+                            <property>
+                                <name>LearningTag</name>
+                            </property>
+                            <property>
+                                <name>MonitoringTag</name>
+                            </property>
+                            <property>
+                                <name>AlertAbove</name>
+                            </property>
+                            <property>
+                                <name>AlertBelow</name>
+                            </property>
+                            <property>
+                                <name>AlertNA</name>
+                            </property>
+                            <property>
+                                <name>AlertTrendUP</name>
+                            </property>
+                            <property>
+                                <name>AlertTrendDown</name>
+                            </property>
+                            <property>
+                                <name>PublishAlerts</name>
+                            </property>
+                            <property>
+                                <name>PublishLimits</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/Events/OutgoingEvents/ForTesting/DeviceReadingEventRTCEndReport</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>WERRulesFired</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+            </domain-objects>
+        </cache-manager>
+        <db-concepts>
+            <db-uris/>
+            <check-interval>60</check-interval>
+            <inactivity-timeout>0</inactivity-timeout>
+            <initial-size>5</initial-size>
+            <max-size>5</max-size>
+            <min-size>5</min-size>
+            <property-check-interval>900</property-check-interval>
+            <retry-count>-1</retry-count>
+            <wait-timeout>1</wait-timeout>
+        </db-concepts>
+    </object-management>
+    <rulesets>
+        <rules id="all-rules">
+            <uri>/</uri>
+        </rules>
+    </rulesets>
+    <function-groups>
+        <functions id="all-functions">
+            <uri>/</uri>
+        </functions>
+    </function-groups>
+    <destination-groups/>
+    <process-groups/>
+    <log-configs>
+        <log-config id="logConfig">
+            <enabled>true</enabled>
+            <roles>*:debug</roles>
+            <files>
+                <enabled>true</enabled>
+                <dir>C:\Projects\TEP\BE-Logs\DeviceMonitoring</dir>
+                <name/>
+                <max-number>1000</max-number>
+                <max-size>5000000</max-size>
+                <append>true</append>
+            </files>
+            <terminal>
+                <enabled>true</enabled>
+                <sys-out-redirect>true</sys-out-redirect>
+                <sys-err-redirect>true</sys-err-redirect>
+                <encoding/>
+            </terminal>
+            <line-layout>
+                <enabled>false</enabled>
+                <class/>
+                <arg/>
+            </line-layout>
+        </log-config>
+    </log-configs>
+    <agent-classes>
+        <cache-agent-class id="cache-class">
+            <property-group>
+                <property name="be.engine.cacheServer.channel.disable" value="true"/>
+            </property-group>
+        </cache-agent-class>
+        <inference-agent-class id="devicemonitor-class">
+            <rules>
+                <ref>all-rules</ref>
+            </rules>
+            <destinations>
+                <destination id="ReadingRecievingDestination_4A8527F0">
+                    <pre-processor>/RuleFunctions/Preprocessors/SensorEvent/DeviceReadingPreprocessor</pre-processor>
+                    <queue-size/>
+                    <thread-count/>
+                    <threading-model>shared-queue</threading-model>
+                    <uri>/Channels/DeviceRecievingChannel/ReadingRecievingDestination</uri>
+                </destination>
+            </destinations>
+            <startup>
+                <uri>/RuleFunctions/Startup/LoadGVs</uri>
+            </startup>
+            <shutdown/>
+            <local-cache>
+                <eviction>
+                    <max-size>1024</max-size>
+                    <max-time>900</max-time>
+                </eviction>
+            </local-cache>
+            <shared-queue>
+                <size>1024</size>
+                <workers>10</workers>
+            </shared-queue>
+            <load>
+                <max-active/>
+            </load>
+            <concurrent-rtc>true</concurrent-rtc>
+            <check-for-duplicates>false</check-for-duplicates>
+            <businessworks>
+                <uri/>
+            </businessworks>
+            <property-group>
+                <property name="Agent.devicemonitor-class.enableParallelOps" value="true"/>
+                <property name="Agent.devicemonitor-class.dbthreadcount" value="4"/>
+                <property name="Agent.devicemonitor-class.dbOpsQueueSize" value="4"/>
+                <property name="Agent.devicemonitor-class.dbOpsBatchSize" value="2"/>
+                <property name="Agent.devicemonitor-class.threadcount" value="8"/>
+            </property-group>
+        </inference-agent-class>
+    </agent-classes>
+    <processing-units>
+        <processing-unit id="DeviceMonitor1_local">
+            <agents>
+                <agent>
+                    <ref>devicemonitor-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>true</hot-deploy>
+            <cache-storage-enabled>true</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.jms.reconnect.msgCodes" value="*"/>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://localhost:40010"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://localhost:40010"/>
+                <property name="be.engine.jmx.connector.port" value="50011"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+            </property-group>
+        </processing-unit>
+        <processing-unit id="DeviceMonitor2_local">
+            <agents>
+                <agent>
+                    <ref>devicemonitor-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>true</hot-deploy>
+            <cache-storage-enabled>true</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.jms.reconnect.msgCodes" value="*"/>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://localhost:40012"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://localhost:40010"/>
+                <property name="be.engine.jmx.connector.port" value="50011"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+            </property-group>
+        </processing-unit>
+        <processing-unit id="DeviceMonitor3_local">
+            <agents>
+                <agent>
+                    <ref>devicemonitor-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>true</hot-deploy>
+            <cache-storage-enabled>true</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.jms.reconnect.msgCodes" value="*"/>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://localhost:40013"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://localhost:40010"/>
+                <property name="be.engine.jmx.connector.port" value="50011"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+            </property-group>
+        </processing-unit>
+        <processing-unit id="cache">
+            <agents>
+                <agent>
+                    <ref>cache-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>false</hot-deploy>
+            <cache-storage-enabled>true</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://localhost:40010"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://localhost:40010"/>
+                <property name="be.engine.jmx.connector.port" value="50010"/>
+            </property-group>
+        </processing-unit>
+    </processing-units>
+    <load-balancer-configs>
+        <pair-configs/>
+        <adhoc-configs/>
+    </load-balancer-configs>
+    <property-group>
+        <property-group comment="" name="auth">
+            <property name="be.mm.auth.type" value="file"/>
+            <property name="be.mm.auth.file.location" value="C:/tibco/be/5.1/mm/config/users.pwd"/>
+            <property name="java.security.auth.login.config" value="C:/tibco/be/5.1/mm/config/jaas-config.config"/>
+        </property-group>
+        <property name="be.engine.txn.error.function" value="/SharedLib/RuleFunctions/TranExcepHandler"/>
+        <property name="be.jms.reconnect.timeout" value="1"/>
+    </property-group>
+</cluster>

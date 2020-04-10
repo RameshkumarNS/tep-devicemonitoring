@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="www.tibco.com/be/ontology/SharedLib/Scorecards/EquipmentGroupCodes" xmlns:ns0="www.tibco.com/be/ontology/_BaseConcept" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="www.tibco.com/be/ontology/SharedLib/Scorecards/EquipmentGroupCodes" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+    <xs:import namespace="www.tibco.com/be/ontology/_BaseConcept"/>
+    <xs:complexType name="EquipmentGroupCodes" block="extension">
+        <xs:complexContent>
+            <xs:extension base="ns0:_BaseConcept">
+                <xs:sequence>
+                    <xs:element name="Loco" type="xs:string" minOccurs="0"/>
+                    <xs:element name="RailCar" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Chassis" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Intermodal" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Equipment" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="EquipmentGroupCodes" type="tns:EquipmentGroupCodes"/>
+</xs:schema>

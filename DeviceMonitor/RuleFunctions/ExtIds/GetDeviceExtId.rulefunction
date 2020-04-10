@@ -1,0 +1,15 @@
+/**
+ * @description 
+ */
+String rulefunction RuleFunctions.ExtIds.GetDeviceExtId {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+		String sensorType;
+		String sensorKey;
+	}
+	body {
+		return String.format(sensorType, "-", sensorKey);	
+	}
+}

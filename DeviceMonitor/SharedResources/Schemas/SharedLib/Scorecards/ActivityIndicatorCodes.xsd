@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="www.tibco.com/be/ontology/SharedLib/Scorecards/ActivityIndicatorCodes" xmlns:ns0="www.tibco.com/be/ontology/_BaseConcept" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="www.tibco.com/be/ontology/SharedLib/Scorecards/ActivityIndicatorCodes" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+    <xs:import namespace="www.tibco.com/be/ontology/_BaseConcept"/>
+    <xs:complexType name="ActivityIndicatorCodes" block="extension">
+        <xs:complexContent>
+            <xs:extension base="ns0:_BaseConcept">
+                <xs:sequence>
+                    <xs:element name="Add" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Delete" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="ActivityIndicatorCodes" type="tns:ActivityIndicatorCodes"/>
+</xs:schema>

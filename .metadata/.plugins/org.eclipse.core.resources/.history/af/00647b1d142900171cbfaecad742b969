@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element:Concept xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:element="http:///com/tibco/cep/designtime/core/model/element" namespace="/Concepts/" folder="/Concepts/" name="GVs" description="" GUID="5FB31B4A-5447-8F55-271B-FA449B42A233" ownerProjectName="DeviceMonitor" superConceptPath="" autoStartStateMachine="true">
+  <extendedProperties/>
+  <properties name="LearningSampleSize" ownerProjectName="DeviceMonitor" type="int" ownerPath="/Concepts/GVs"/>
+  <properties name="LearningTag" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/GVs"/>
+  <properties name="MonitoringTag" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/GVs"/>
+  <properties name="StatefulDataSize" ownerProjectName="DeviceMonitor" type="int" ownerPath="/Concepts/GVs"/>
+  <properties name="AlertAbove" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/GVs"/>
+  <properties name="AlertBelow" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/GVs"/>
+  <properties name="AlertNA" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/GVs"/>
+  <properties name="AlertTrendUP" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/GVs"/>
+  <properties name="AlertTrendDown" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/GVs"/>
+</element:Concept>

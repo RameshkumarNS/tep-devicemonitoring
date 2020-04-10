@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rms:ArtifactsSummary xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:rms="http:///com/tibco/cep/rms/artifacts/artifacts_summary.ecore" name="DeviceMonitor">
+  <addedArtifacts>
+    <artifact artifactPath="/Channels/DevicePublishingChannel" artifactType="channel" containerPath="/Channels"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Channels/DeviceRecievingChannel" artifactType="channel" containerPath="/Channels"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Concepts/sensorReading" artifactType="concept" containerPath="/Concepts"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Events/IncomingEvents/DeviceReading" artifactType="event" containerPath="/Events/IncomingEvents"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Events/OutgoingEvents/DeviceAlertEvent" artifactType="event" containerPath="/Events/OutgoingEvents"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Events/OutgoingEvents/DeviceLimitSetNotification" artifactType="event" containerPath="/Events/OutgoingEvents"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/ExtIds/GetAttributeExtId" artifactType="rulefunction" containerPath="/RuleFunctions/ExtIds"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/ExtIds/GetAttributeValueExtId" artifactType="rulefunction" containerPath="/RuleFunctions/ExtIds"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/ExtIds/GetCharacteristicExtId" artifactType="rulefunction" containerPath="/RuleFunctions/ExtIds"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/ExtIds/GetCharacteristicValueExtId" artifactType="rulefunction" containerPath="/RuleFunctions/ExtIds"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/ExtIds/GetDeviceExtId" artifactType="rulefunction" containerPath="/RuleFunctions/ExtIds"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/ExtIds/GetSchedulerWorkKey" artifactType="rulefunction" containerPath="/RuleFunctions/ExtIds"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/Preprocessors/SensorEvent/DeviceReadingPreprocessor" artifactType="rulefunction" containerPath="/RuleFunctions/Preprocessors/SensorEvent"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/SharedFunctions/Lock" artifactType="rulefunction" containerPath="/RuleFunctions/SharedFunctions"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Monitoring/WesternElectric/WER1" artifactType="rule" containerPath="/Rules/Monitoring/WesternElectric"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Monitoring/WesternElectric/WER2" artifactType="rule" containerPath="/Rules/Monitoring/WesternElectric"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Monitoring/WesternElectric/WER3" artifactType="rule" containerPath="/Rules/Monitoring/WesternElectric"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Monitoring/WesternElectric/WER4" artifactType="rule" containerPath="/Rules/Monitoring/WesternElectric"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Monitoring/WesternElectric/WER5" artifactType="rule" containerPath="/Rules/Monitoring/WesternElectric"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Monitoring/WesternElectric/WER6" artifactType="rule" containerPath="/Rules/Monitoring/WesternElectric"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Monitoring/WesternElectric/WER7" artifactType="rule" containerPath="/Rules/Monitoring/WesternElectric"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Monitoring/WesternElectric/WER8" artifactType="rule" containerPath="/Rules/Monitoring/WesternElectric"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Monitoring/WesternElectric/WesternEelectricRules" artifactType="rule" containerPath="/Rules/Monitoring/WesternElectric"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/SharedResources/Connections/JDBC/BackingStore" artifactType="sharedjdbc" containerPath="/SharedResources/Connections/JDBC"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/SharedResources/Connections/JMS/SharedMQConnection" artifactType="sharedjmscon" containerPath="/SharedResources/Connections/JMS"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/SharedResources/Schemas/SensorTelemetryAlertEventV1.0" artifactType="xsd" containerPath="/SharedResources/Schemas"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/SharedResources/Schemas/SensorTelemetryEventV1.0" artifactType="xsd" containerPath="/SharedResources/Schemas"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/SharedResources/Schemas/SensorTelemetryLimitsV1.0" artifactType="xsd" containerPath="/SharedResources/Schemas"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/Application/Lock/defaultVars" artifactType="substvar" containerPath="/defaultVars/Application/Lock"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/Application/ProcessingConstants/AlertParameters/defaultVars" artifactType="substvar" containerPath="/defaultVars/Application/ProcessingConstants/AlertParameters"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/Application/ProcessingConstants/OperationMode/defaultVars" artifactType="substvar" containerPath="/defaultVars/Application/ProcessingConstants/OperationMode"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/Application/ProcessingConstants/WesternRules/defaultVars" artifactType="substvar" containerPath="/defaultVars/Application/ProcessingConstants/WesternRules"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/Application/ProcessingConstants/defaultVars" artifactType="substvar" containerPath="/defaultVars/Application/ProcessingConstants"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/Application/defaultVars" artifactType="substvar" containerPath="/defaultVars/Application"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/SharedResources/Connections/JDBC/BackingStore/defaultVars" artifactType="substvar" containerPath="/defaultVars/SharedResources/Connections/JDBC/BackingStore"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/SharedResources/Connections/JDBC/defaultVars" artifactType="substvar" containerPath="/defaultVars/SharedResources/Connections/JDBC"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/SharedResources/Connections/JMS/JNDI/defaultVars" artifactType="substvar" containerPath="/defaultVars/SharedResources/Connections/JMS/JNDI"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/SharedResources/Connections/JMS/SensorInput/defaultVars" artifactType="substvar" containerPath="/defaultVars/SharedResources/Connections/JMS/SensorInput"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/SharedResources/Connections/JMS/SensorPublish/defaultVars" artifactType="substvar" containerPath="/defaultVars/SharedResources/Connections/JMS/SensorPublish"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/SharedResources/Connections/JMS/defaultVars" artifactType="substvar" containerPath="/defaultVars/SharedResources/Connections/JMS"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/SharedResources/Connections/defaultVars" artifactType="substvar" containerPath="/defaultVars/SharedResources/Connections"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/SharedResources/defaultVars" artifactType="substvar" containerPath="/defaultVars/SharedResources"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/defaultVars" artifactType="substvar" containerPath="/defaultVars"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/Utility/debugOutSensorReadingValues" artifactType="rulefunction" containerPath="/RuleFunctions/Utility"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Concepts/GVs" artifactType="concept" containerPath="/Concepts"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/Startup/LoadGVs" artifactType="rulefunction" containerPath="/RuleFunctions/Startup"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/OffLeaning/CalculateDeviceStats" artifactType="rule" containerPath="/Rules/OffLeaning"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Init/Stateful/AddNewReadingMaintainSampleSize" artifactType="rule" containerPath="/Rules/Init/Stateful"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Init/Stateful/ErrorSampleSizeExceeded" artifactType="rule" containerPath="/Rules/Init/Stateful"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/End/RTCEnd" artifactType="rule" containerPath="/Rules/End"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Rules/Init/Stateless/AddNewReadingInLearningMode" artifactType="rule" containerPath="/Rules/Init/Stateless"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/Events/OutgoingEvents/ForTesting/ReadingEventRTCEndReport" artifactType="event" containerPath="/Events/OutgoingEvents/ForTesting"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/defaultVars/Application/Control/defaultVars" artifactType="substvar" containerPath="/defaultVars/Application/Control"/>
+  </addedArtifacts>
+  <addedArtifacts>
+    <artifact artifactPath="/RuleFunctions/Startup/RefreshAndLoadGVs" artifactType="rulefunction" containerPath="/RuleFunctions/Startup"/>
+  </addedArtifacts>
+</rms:ArtifactsSummary>

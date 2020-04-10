@@ -1,0 +1,13 @@
+2017 Apr 25 12:24:43:319 GMT -4 cep-engine Fatal [main] - [container.standalone] Cannot read CDD: C:\Projects\TEP\DeviceMonitoring\DeviceMonitor\Deployments\DeviceMonitor.cdd
+java.lang.RuntimeException: Cannot read CDD: C:\Projects\TEP\DeviceMonitoring\DeviceMonitor\Deployments\DeviceMonitor.cdd
+	at com.tibco.be.util.BEPropertiesFactory.makeBEProperties(BEPropertiesFactory.java:63)
+	at com.tibco.be.util.BEPropertiesFactory.makeBEProperties(BEPropertiesFactory.java:84)
+	at com.tibco.cep.runtime.session.RuleServiceProviderManager.newProvider(RuleServiceProviderManager.java:171)
+	at com.tibco.cep.container.standalone.BEMain.jumpStart(SourceFile:126)
+	at com.tibco.cep.container.standalone.BEMain.main(SourceFile:70)
+Caused by: java.lang.RuntimeException: Cannot find processing unit name: localDevMon
+	at com.tibco.be.util.BEPropertiesFactory.getPropertiesFromCdd(BEPropertiesFactory.java:132)
+	at com.tibco.be.util.BEPropertiesFactory.makeBEProperties(BEPropertiesFactory.java:61)
+	... 4 more
+2017 Apr 25 12:24:43:320 GMT -4 cep-engine Debug [main] - [root] System exit requested by thread [main] with status: -1
+2017 Apr 25 12:24:43:320 GMT -4 cep-engine Debug [com.tibco.cep.runtime.service.basic.ShutdownWatcher$SystemExitCallerThread] - [root] System.exit(..) will be invoked now with status: -1

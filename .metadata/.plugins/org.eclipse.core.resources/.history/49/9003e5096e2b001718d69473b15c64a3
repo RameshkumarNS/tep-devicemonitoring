@@ -1,0 +1,20 @@
+/**
+ * @description 
+ */
+void rulefunction RuleFunctions.Startup.RefreshGVs {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+	}
+	body {
+		String extID = System.getGlobalVariableAsString("Application/ProcessingConstants/GVsExtID", "DeviceMonitoring-GVs");
+		Concepts.GVs	GVs = Instance.getByExtId(extID);		
+		boolean lockObtained = RuleFunctions.SharedFunctions.Lock(deviceExtId);
+
+		if(	GVs.PublishAlerts != System.getGlobalVariableAsBoolean("Application/Control/PublishAlerts", true)
+			|| GVs.PublishLimits != System.getGlobalVariableAsBoolean("Application/Control/PublishLimits", true))
+			Instance.deleteInstance(VGs);
+		
+	}
+}

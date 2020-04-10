@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="www.tibco.com/be/ontology/Concepts/GVs" xmlns:ns0="www.tibco.com/be/ontology/_BaseConcept" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="www.tibco.com/be/ontology/Concepts/GVs" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+    <xs:import namespace="www.tibco.com/be/ontology/_BaseConcept"/>
+    <xs:complexType name="GVs" block="extension">
+        <xs:complexContent>
+            <xs:extension base="ns0:_BaseConcept">
+                <xs:sequence>
+                    <xs:element name="LearningSampleSize" type="xs:integer" minOccurs="0"/>
+                    <xs:element name="LearningTag" type="xs:string" minOccurs="0"/>
+                    <xs:element name="MonitoringTag" type="xs:string" minOccurs="0"/>
+                    <xs:element name="AlertAbove" type="xs:string" minOccurs="0"/>
+                    <xs:element name="AlertBelow" type="xs:string" minOccurs="0"/>
+                    <xs:element name="AlertNA" type="xs:string" minOccurs="0"/>
+                    <xs:element name="AlertTrendUP" type="xs:string" minOccurs="0"/>
+                    <xs:element name="AlertTrendDown" type="xs:string" minOccurs="0"/>
+                    <xs:element name="PublishAlerts" type="xs:boolean" minOccurs="0"/>
+                    <xs:element name="PublishLimits" type="xs:boolean" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="GVs" type="tns:GVs"/>
+</xs:schema>

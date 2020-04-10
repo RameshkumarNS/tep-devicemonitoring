@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<BWSharedResource>
+    <name>BackingStore</name>
+    <resourceType>ae.shared.JDBCSharedResource</resourceType>
+    <description/>
+    <config>
+        <description/>
+        <resourceType>ae.shared.JDBCSharedResource</resourceType>
+        <driver>com.ibm.db2.jcc.DB2Driver</driver>
+        <maxConnections>5</maxConnections>
+        <loginTimeout>0</loginTimeout>
+        <connectionType>JDBC</connectionType>
+        <UseSharedJndiConfig>false</UseSharedJndiConfig>
+        <location>%%SharedResources/Connections/JDBC/BackingStore/DBURI%%</location>
+        <user>%%SharedResources/Connections/JDBC/BackingStore/DBUserName%%</user>
+        <password>%%SharedResources/Connections/JDBC/BackingStore/DBPassword%%</password>
+        <ContextFactory>com.tibco.tibjms.naming.TibjmsInitialContextFactory</ContextFactory>
+        <ProviderUrl>tibjmsnaming://localhost:7222</ProviderUrl>
+        <UserName/>
+        <UserPassword>#!ZpCJPND6W09u+j/y34ZBZQ==</UserPassword>
+        <jndiDataSourceName/>
+        <JndiSharedConfiguration/>
+    </config>
+</BWSharedResource>

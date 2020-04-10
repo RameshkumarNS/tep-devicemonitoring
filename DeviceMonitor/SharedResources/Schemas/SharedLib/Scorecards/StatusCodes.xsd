@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="www.tibco.com/be/ontology/SharedLib/Scorecards/StatusCodes" xmlns:ns0="www.tibco.com/be/ontology/_BaseConcept" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="www.tibco.com/be/ontology/SharedLib/Scorecards/StatusCodes" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+    <xs:import namespace="www.tibco.com/be/ontology/_BaseConcept"/>
+    <xs:complexType name="StatusCodes" block="extension">
+        <xs:complexContent>
+            <xs:extension base="ns0:_BaseConcept">
+                <xs:sequence>
+                    <xs:element name="Received" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Invalid" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Deleted" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Success" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Processed" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="StatusCodes" type="tns:StatusCodes"/>
+</xs:schema>

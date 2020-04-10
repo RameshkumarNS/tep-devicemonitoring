@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<repository xmlns="http://www.tibco.com/xmlns/repo/types/2002">
+    <globalVariables>
+        <globalVariable>
+            <name>DBURI</name>
+            <value>jdbc:db2://db2odstest.atldc.nscorp.com:60600/ODSTEST:currentSchema=DEVICEMONITORING;</value>
+            <type>String</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description/>
+            <constraint/>
+            <modTime>1491850771761</modTime>
+        </globalVariable>
+        <globalVariable>
+            <name>DBUserName</name>
+            <value>tbed201</value>
+            <type>String</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description/>
+            <constraint/>
+            <modTime>1427736663794</modTime>
+        </globalVariable>
+        <globalVariable>
+            <name>DBPassword</name>
+            <value>#!dOZJ+lObvE+wfLI0O9TubYCs0DPZDRXaYEuuZlP5IPA=</value>
+            <type>Password</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description/>
+            <constraint/>
+            <modTime>1427736705354</modTime>
+        </globalVariable>
+    </globalVariables>
+</repository>

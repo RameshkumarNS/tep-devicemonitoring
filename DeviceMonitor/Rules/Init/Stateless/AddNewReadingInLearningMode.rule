@@ -1,0 +1,45 @@
+/**
+ * @description 
+ * @author GAATLITEARD864L
+ */
+rule Rules.Init.Stateless.AddNewReadingInLearningMode {
+	attribute {
+		priority = 5;
+		forwardChain = true;
+	}
+	declare {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+		Concepts.sensorReading sensorReading;
+		Concepts.GVs	GVs;
+	}
+	when {
+		!Instance.isModified(sensorReading);
+		sensorReading.operationMode==GVs.LearningTag;
+		sensorReading.readingValues@length < GVs.LearningSampleSize;
+		sensorReading@extId == sensorReadingEvent.DeviceReading_extId;
+	}
+	then {
+		//Setup logging
+		String functionName = "Rules.Init.Stateless.AddNewReadingInLearningMode";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "Rule started, Device: " + sensorReading@extId, null);
+		
+		DateTime startDateTime = DateTime.now();
+		long startTimeMs = DateTime.getTimeInMillis(startDateTime);
+		
+		try{
+			double newreading = XPath.evalAsDouble("xpath://<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xpath>\n    <expr>$sensorReadingEvent/payload/xsd2:SensorEvent/xsd2:EventInformation/xsd2:Value</expr>\n    <namespaces>\n        <namespace URI=\"http://www.w3.org/1999/XSL/Transform\" pfx=\"xsl\"/>\n        <namespace URI=\"http://www.nscorp.com/sensor/telemetryevent/v1.0\" pfx=\"xsd2\"/>\n        <namespace URI=\"http://www.w3.org/2001/XMLSchema\" pfx=\"xsd\"/>\n    </namespaces>\n    <variables>\n        <variable>sensorReadingEvent</variable>\n    </variables>\n</xpath>");
+			sensorReading.readingValues[sensorReading.readingValues@length] = newreading;
+			
+			System.debugOut("\n" + "device reading is now-->: \n" + Instance.serializeUsingDefaults(sensorReading) + "\n");
+			long end = DateTime.getTimeInMillis(DateTime.now());
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , sensorReading@extId + " Executed rule in: " + (end-startTimeMs) + "milliseconds", null);
+		}catch(Exception e){
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelError,functionName  , "Exception while processing rule for device : " + sensorReadingEvent.DeviceReading_extId + ":" +  e@message, e@stackTrace);
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelWarning,functionName  , "Incoming payload: "+sensorReadingEvent@payload , null);
+			Event.consumeEvent(sensorReadingEvent);
+ 			Engine.Rtc.abortRTC();
+		}
+		
+	}
+}

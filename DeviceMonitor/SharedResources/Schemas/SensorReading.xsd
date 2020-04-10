@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://www.nscorp.com/sensor/telemetrylimits/v1.0" targetNamespace="http://www.nscorp.com/sensor/telemetrylimits/v1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="SensorReading" type="ns:SensorReadingType"/>
+	<xs:complexType name="SensorReadingType">
+		<xs:sequence>
+			<xs:element name="deviceKey" type="xs:string" minOccurs="0"/>
+			<xs:element name="deviceType" type="xs:string" minOccurs="0"/>
+			<xs:element name="readingValues" type="xs:double" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="operationMode" type="xs:string" minOccurs="0"/>
+			<xs:element name="StatsDateTime" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="StatsMethodName" type="xs:string" minOccurs="0"/>
+			<xs:element name="variance" type="xs:double" minOccurs="0"/>
+			<xs:element name="meanValue" type="xs:double" minOccurs="0"/>
+			<xs:element name="stdDevValue" type="xs:double" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

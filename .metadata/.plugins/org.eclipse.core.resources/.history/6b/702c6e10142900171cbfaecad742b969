@@ -1,0 +1,25 @@
+/**
+ * @description 
+ */
+void rulefunction RuleFunctions.Startup.LoadGVs {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+		
+	}
+	body {
+		Concepts.GVs	GVs = Concepts.GVs.GVs(
+							"DeviceMonitoring-GVs" /*extId String */,
+							System.getGlobalVariableAsInt("Application/ProcessingConstants/LearningSampleSize",100)	/*LearningSampleSize int */,
+							System.getGlobalVariableAsString("Application/ProcessingConstants/OperationMode/Learning", "Learning")	/*LearningTag String */,
+							System.getGlobalVariableAsString("Application/ProcessingConstants/OperationMode/Monitoring", "Monitoring")	/*MonitoringTag String */,
+							System.getGlobalVariableAsInt("Application/ProcessingConstants/StatefulDataSize", 15)	/*StatefulDataSize int */,
+							System.getGlobalVariableAsString("Application/ProcessingConstants/AlertParameters/AlertAbove", "Above")	/*AlertAbove String */,
+							System.getGlobalVariableAsString("Application/ProcessingConstants/AlertParameters/AlertBelow", "Below")	/*AlertBelow String */,
+							System.getGlobalVariableAsString("Application/ProcessingConstants/AlertParameters/AlertNA", "N/A")	/*AlertNA String */,
+							System.getGlobalVariableAsString("Application/ProcessingConstants/AlertParameters/TrendUp", "Up")	/*AlertTrendUP String */,
+							System.getGlobalVariableAsString("Application/ProcessingConstants/AlertParameters/TrendDown", "Down")	/*AlertTrendDown String */
+							);
+	}
+}

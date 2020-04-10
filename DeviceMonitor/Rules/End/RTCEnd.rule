@@ -1,0 +1,62 @@
+/**
+ * @description 
+ * @author GAATLITEARD864L
+ * 	when a new device reading data element is received, remove the oldest data element and insert the new one
+ */
+ 
+rule Rules.End.RTCEnd {
+	attribute {
+		priority = 10;
+		forwardChain = true;
+	}
+	declare {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+		Concepts.sensorReading sensorReading;
+		Concepts.GVs	GVs;
+	}
+	when {
+		sensorReading.operationMode == GVs.MonitoringTag;
+		sensorReading@extId == sensorReadingEvent.DeviceReading_extId;
+		sensorReading.readingValues@length >14;// this condition is intended as a safety measure only, although it is not necessary 
+	}
+	then {
+		String	functionName = "Rules.Init.Stateful.RTCEnd";
+		DateTime dtNow = DateTime.now();
+		Events.OutgoingEvents.ForTesting.DeviceReadingEventRTCEndReport evt = null; 
+		String dtString = DateTime.format(dtNow, "yyyy-MM-dd HH:mm:ss.SSS");
+		String	Str;
+//		String	Str = "\n\n************";
+//		Str += dtString + " The following WER Rule(s) have fired: [" + sensorReadingEvent.WERRulesFired + "]";
+//		double[] values = Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+//		Str += "\n" + "There exist " + sensorReading.readingValues@length + " device readings";
+		//		Str += ", the \"15\" device readings (last is last) are: [";
+		//		for(int i=sensorReading.readingValues@length-15; i<sensorReading.readingValues@length ; i++){
+		//			Str += "" + sensorReading.readingValues[i];
+		//			if(i+1<sensorReading.readingValues@length)	Str += " ";
+		//		}
+		//		Str += "]";
+
+//		Str += "\n, The 15 device readings (first is last, for excel) are: [";
+//		for(int i=sensorReading.readingValues@length-1; i>=0 ; i--){
+//			Str += "" + sensorReading.readingValues[i];
+//			if(i-1>=0)	Str += "\t";
+//		}
+//		Str += "]";
+
+
+//		Str += "\n" + "deviceExtId [" + sensorReading@extId + "], meanValue:[" + sensorReading.meanValue + "], stdDevValue:[" + sensorReading.stdDevValue + "], operationMode: " + sensorReading.operationMode + "\n";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		long now = DateTime.getTimeInMillis(dtNow);
+		long execTime = now - sensorReadingEvent.transactionStarttime;
+//		Str += "Transaction elapsed " + execTime +" Milli Seconds, start:[" + sensorReadingEvent.transactionStarttime + ", End:[" + now + "]\n";
+		
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , Str + ", Device: " + sensorReading@extId, null);
+		if(System.getGlobalVariableAsBoolean("Application/Control/PublishRTCReport", true)){
+			evt = Event.createEvent("xslt://{{/Events/OutgoingEvents/ForTesting/DeviceReadingEventRTCEndReport}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:ns=\"http://www.nscorp.com/sensor/telemetrylimits/v1.0\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:tib=\"http://www.tibco.com/bw/xslt/custom-functions\" version=\"1.0\" exclude-result-prefixes=\"xsl ns xsd tib\">\n    <xsl:output method=\"xml\"/>\n    <xsl:param name=\"sensorReadingEvent\"/>\n    <xsl:param name=\"sensorReading\"/>\n    <xsl:template match=\"/\">\n        <createEvent>\n            <event>\n                <WERRulesFired>\n                    <xsl:value-of select=\"if(tib:trim($sensorReadingEvent/WERRulesFired) = &quot;&quot;)&#xA;then&#xA;&#x9;&quot;NA&quot;&#xA;else&#xA;&#x9;$sensorReadingEvent/WERRulesFired\"/>\n                </WERRulesFired>\n                <payload>\n                    <ns:SensorReading>\n                        <xsl:if test=\"$sensorReading/deviceKey\">\n                            <ns:deviceKey>\n                                <xsl:value-of select=\"$sensorReading/deviceKey\"/>\n                            </ns:deviceKey>\n                        </xsl:if>\n                        <xsl:if test=\"$sensorReading/deviceType\">\n                            <ns:deviceType>\n                                <xsl:value-of select=\"$sensorReading/deviceType\"/>\n                            </ns:deviceType>\n                        </xsl:if>\n                        <xsl:for-each select=\"$sensorReading/readingValues\">\n                            <ns:readingValues>\n                                <xsl:value-of select=\".\"/>\n                            </ns:readingValues>\n                        </xsl:for-each>\n                        <xsl:if test=\"$sensorReading/operationMode\">\n                            <ns:operationMode>\n                                <xsl:value-of select=\"$sensorReading/operationMode\"/>\n                            </ns:operationMode>\n                        </xsl:if>\n                        <xsl:if test=\"$sensorReading/StatsDateTime\">\n                            <ns:StatsDateTime>\n                                <xsl:value-of select=\"$sensorReading/StatsDateTime\"/>\n                            </ns:StatsDateTime>\n                        </xsl:if>\n                        <xsl:if test=\"$sensorReading/StatsMethodName\">\n                            <ns:StatsMethodName>\n                                <xsl:value-of select=\"$sensorReading/StatsMethodName\"/>\n                            </ns:StatsMethodName>\n                        </xsl:if>\n                        <xsl:if test=\"$sensorReading/variance\">\n                            <ns:variance>\n                                <xsl:value-of select=\"$sensorReading/variance\"/>\n                            </ns:variance>\n                        </xsl:if>\n                        <xsl:if test=\"$sensorReading/meanValue\">\n                            <ns:meanValue>\n                                <xsl:value-of select=\"$sensorReading/meanValue\"/>\n                            </ns:meanValue>\n                        </xsl:if>\n                        <xsl:if test=\"$sensorReading/stdDevValue\">\n                            <ns:stdDevValue>\n                                <xsl:value-of select=\"$sensorReading/stdDevValue\"/>\n                            </ns:stdDevValue>\n                        </xsl:if>\n                    </ns:SensorReading>\n                </payload>\n            </event>\n        </createEvent>\n    </xsl:template>\n</xsl:stylesheet>");
+			if(Event.sendEvent(evt)==null)
+				SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , Str + " ERROR SENDING RTC END REPORT NOTIFICATION" + ", Device: " + sensorReading@extId, null);
+			else
+				SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , " SENT RTC END REPORT NOTIFICATION" + "\n" + " The following WER Rule(s) have fired: [" + sensorReadingEvent.WERRulesFired + "]\n" + evt@payload, null);
+		}
+	}
+}

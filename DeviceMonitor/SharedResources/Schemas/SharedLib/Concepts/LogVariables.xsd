@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="www.tibco.com/be/ontology/SharedLib/Concepts/LogVariables" xmlns:ns0="www.tibco.com/be/ontology/_BaseConcept" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="www.tibco.com/be/ontology/SharedLib/Concepts/LogVariables" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+    <xs:import namespace="www.tibco.com/be/ontology/_BaseConcept"/>
+    <xs:complexType name="LogVariables" block="extension">
+        <xs:complexContent>
+            <xs:extension base="ns0:_BaseConcept">
+                <xs:sequence>
+                    <xs:element name="LogLevelError" type="xs:string" minOccurs="0"/>
+                    <xs:element name="LogLevelInfo" type="xs:string" minOccurs="0"/>
+                    <xs:element name="LogLevelWarning" type="xs:string" minOccurs="0"/>
+                    <xs:element name="LogLevelDebug" type="xs:string" minOccurs="0"/>
+                    <xs:element name="LogLevel" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="LogVariables" type="tns:LogVariables"/>
+</xs:schema>

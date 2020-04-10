@@ -1,0 +1,233 @@
+/**
+ * @description 
+ * @author GAATLITEARD864L
+ */
+rule Rules.Monitoring.WesternElectric.WesternEelectricRules {
+	attribute {
+		priority = 5;
+		forwardChain = true;
+	}
+	declare {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+		Concepts.sensorReading sensorReading;
+	}
+	when {
+//		sensorReading@extId == sensorReadingEvent.DeviceReading_extId;
+//		sensorReading.operationMode == GVs.MonitoringTag;
+//		sensorReading.StatsMethodName == "SD";// bases for making it configurable per device
+		1==2;
+	}
+	then {
+		;
+/*		
+		//Setup logging
+		String functionName = "Rules.Monitoring.WesternElectric.WER1";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "Rule started, Device: " + sensorReading@extId, null);
+		
+		DateTime startDateTime = DateTime.now();
+		long startTimeMs = DateTime.getTimeInMillis(startDateTime);
+		
+		try{
+			//	&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+			double mean = 0.0;
+			double variance = 0.0;
+			double sd = 0.0;
+			double sum = 0.0;
+			double sumSq = 0.0;
+
+			mean =  sensorReading.meanValue;
+			variance = sensorReading.variance;
+			sd = sensorReading.stdDevValue;
+			// 1 σ;
+			int legth = sensorReading.readingValues@length;
+			double oneSigma = sd + mean;
+			double twoSigma = (2 * sd) + mean;
+			double threeSigma = (3 * sd) + mean;
+			
+			double minusOneSigma = mean - sd;
+			double minusTwoSigma =  mean - (2 * sd);
+			double minusThreeSigma = mean - (3 * sd);
+			double mostRecentReading = sensorReading.readingValues[sensorReading.readingValues@length-1];
+			//	&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+			
+			//---------- Rule 1: The most recent point plots outside one of the 3-sigma control limits
+			boolean isRule1 = false;
+			if(mostRecentReading > threeSigma || mostRecentReading < minusThreeSigma){
+				//Rule 1 triggered
+				isRule1 = true;	
+			
+			//---------- Rule 2: Two of the three most recent points plot outside and on the same side as one of the 2-sigma control limits
+			if(sensorReading.readingValues@length >= 3){
+				int len = sensorReading.readingValues@length;
+				double[] values =  Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+				boolean isRule2 = false;
+				int twoOfThreeUp = 0;
+				int twoOfThreeDown = 0;
+				for(int i=len-1; i==len-3; i--){
+					if(values[i] > twoSigma && values[i] <= threeSigma){
+						twoOfThreeUp++;				
+					}
+					
+					if(values[i] <= minusThreeSigma && values[i] > minusTwoSigma){
+						twoOfThreeDown++;				
+					}
+				}
+				if(twoOfThreeUp >= 2 || twoOfThreeDown >= 2){
+					isRule2 = true;		
+				}
+			}
+			
+			//---------- Rule 3: Four of the five most recent points plot outside and on the same side as one of the 1-sigma control limits. 
+			if(sensorReading.readingValues@length >= 5){
+				int len = sensorReading.readingValues@length;
+				double[] values =  Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+				boolean isRule3 = false;
+				int fourOfFiveUp = 0;
+				int fourOfFiveDown = 0;
+				for(int i=len-1; i==len-5; i--){
+					if(values[i] > oneSigma && values[i] <= threeSigma){
+						fourOfFiveUp++;				
+					}
+					
+					if(values[i] <= minusThreeSigma && values[i] > minusOneSigma){
+						fourOfFiveDown++;				
+					}
+				}
+				if(fourOfFiveUp >= 4 || fourOfFiveDown >= 4){
+					isRule3 = true;		
+				}
+			}
+			
+			//---------- Rule 4: Eight out of the last eight points plot on the same side of the median line, or target value 
+			if(sensorReading.readingValues@length >= 8){
+				int len = sensorReading.readingValues@length;
+				double[] values =  Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+				boolean isRule4 = false;
+				int eightOfEightUp = 0;
+				int eightOfEightDown = 0;
+				for(int i=len-1; i==len-8; i--){
+					if(values[i] > mean && values[i] <= threeSigma){
+						eightOfEightUp++;				
+					}
+					
+					if(values[i] <= minusThreeSigma && values[i] > mean){
+						eightOfEightDown++;				
+					}
+				}
+				if(eightOfEightDown == 8 || eightOfEightDown == 8){
+					isRule4 = true;		
+				}
+			}
+			
+			//---------- Rule 5: Six points in a row increasing or decreasing. 
+			if(sensorReading.readingValues@length >= 6){
+				int len = sensorReading.readingValues@length;
+				double[] values =  Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+				boolean isRule5 = false;
+				boolean sixDecreasing = true;
+				boolean sixIncreasing = true;
+				double prevValue = 0.0;
+				for(int i=len-1; i==len-6; i--){
+					if(i!=len-1 && sixIncreasing){
+						if(values[i] < prevValue){ 
+							sixIncreasing = true;
+							sixDecreasing = false;
+						} else {
+							sixIncreasing = false;	
+						}				
+					}
+					
+					if(i!=len-1 && sixDecreasing){
+						if(values[i] > prevValue){
+							sixDecreasing = true;
+							sixIncreasing = false;	
+						}else {
+							sixDecreasing = false;	
+						}			
+					}
+					prevValue = values[i];
+				}
+				if(sixDecreasing || sixIncreasing){
+					isRule5 = true;		
+				}
+			}
+			
+			//---------- Rule 6: Fifteen points in a row within one sigma. 
+			if(sensorReading.readingValues@length >= 15){
+				int len = sensorReading.readingValues@length;
+				double[] values =  Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+				boolean isRule6 = false;
+				int fifteenInaRow = 0;
+				double prevValue = 0.0;
+				for(int i=len-1; i==len-15; i--){
+					if(values[i] >= minusOneSigma && values[i] <= oneSigma){
+						fifteenInaRow++;				
+					}
+				}
+				if(fifteenInaRow == 15){
+					isRule6 = true;		
+				}
+			}
+			
+			//---------- Rule 7: Fourteen points in a row alternating direction. 
+			if(sensorReading.readingValues@length >= 14){
+				int len = sensorReading.readingValues@length;
+				double[] values =  Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+				boolean isRule7 = true;
+				boolean[] isAltBools = boolean[13]{};
+				int fourteenInaRow = 0;
+				double prevValue = values[13];
+				for(int i=len-2; i==len-14; i--){
+					if(values[i] > prevValue){
+						fourteenInaRow++;
+						isAltBools[isAltBools@length] = true;
+										
+					} else if(values[i] < prevValue){
+						fourteenInaRow--;	
+						isAltBools[isAltBools@length] = false;			
+					}
+				}
+				
+				if(isAltBools@length == 13){
+					boolean prevBool = isAltBools[0];
+					for(int i=1 ; i < isAltBools@length; i++){
+						if(isAltBools[i] == prevBool){
+							isRule7 = false;
+							break;	
+						}
+						prevBool = isAltBools[i];					
+					}	
+				}	
+			}
+			
+			
+			//---------- Rule 8: Eight points in a row outside one sigma
+			if(sensorReading.readingValues@length >= 8){
+				int len = sensorReading.readingValues@length;
+				double[] values =  Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+				boolean isRule8 = false;
+				int eightOfEight = 0;
+				for(int i=len-1; i==len-8; i--){
+					if(values[i] > oneSigma || values[i] < minusOneSigma){
+						eightOfEight++;				
+					}
+				}
+				if(eightOfEight == 8){
+					isRule8 = true;		
+				}
+			}
+		}
+					
+			long end = DateTime.getTimeInMillis(DateTime.now());
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , sensorReading@extId + " Executed rule in: " + (end-startTimeMs) + "milliseconds", null);
+		}catch(Exception e){
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelError,functionName  , "Exception while processing rule for Device: " + sensorReading@extId + ":" +  e@message, e@stackTrace);
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelWarning,functionName  , "Incoming payload: "+sensorReadingEvent@payload , null);
+			Event.consumeEvent(sensorReadingEvent);
+ 			Engine.Rtc.abortRTC();
+		}
+	*/	
+	}
+	
+}

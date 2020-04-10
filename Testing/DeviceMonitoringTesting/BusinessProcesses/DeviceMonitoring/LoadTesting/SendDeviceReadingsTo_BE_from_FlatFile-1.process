@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="http://www.nscorp.com/sensor/telemetryevent/v1.0">
+    <xsd:import namespace="http://www.nscorp.com/sensor/telemetryevent/v1.0" schemaLocation="/SharedResources/Schemas/SensorTelemetryEventV1.0.xsd"/>
+    <pd:name>BusinessProcesses/DeviceMonitoring/LoadTesting/SendDeviceReadingsTo_BE_from_FlatFile-1.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>60</pd:startX>
+    <pd:startY>150</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1243</pd:endX>
+    <pd:endY>155</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <DataPointsCount>
+            <xsd:element name="count" type="xsd:int"/>
+        </DataPointsCount>
+        <baseEventData ref="pfx:SensorEvent"/>
+        <inputDataLine>
+            <xsd:element name="group">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="eventdata" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="value" type="xsd:double"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </inputDataLine>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1491569218823</pd:targetNamespace>
+    <pd:activity name="Parse SampleEvent">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>307</pd:x>
+        <pd:y>154</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx:SensorEvent"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Read-SampleEventFile/ns1:ReadActivityOutputTextClass/fileContent/textContent"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ReadCurrInputFile">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>430</pd:x>
+        <pd:y>156</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <ns:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="&quot;C:\Projects\TEP\DeviceMonitoring\Testing\TestData\Flatfiles\DeviceMonitoringTestData-1.txt&quot;"/>
+                </fileName>
+            </ns:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>672</pd:x>
+        <pd:y>63</pd:y>
+        <pd:width>359</pd:width>
+        <pd:height>170</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>while</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:whileCondition>$i &lt;=  ($DataPointsCount/count -2)</pd:whileCondition>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>ApplyEventData</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JMS Queue Sender</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>ApplyEventData</pd:from>
+            <pd:to>JMS Queue Sender</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="JMS Queue Sender">
+            <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+            <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+            <pd:x>916</pd:x>
+            <pd:y>157</pd:y>
+            <config>
+                <PermittedMessageType>Text</PermittedMessageType>
+                <SessionAttributes>
+                    <transacted>false</transacted>
+                    <acknowledgeMode>1</acknowledgeMode>
+                    <maxSessions>1</maxSessions>
+                    <destination>TEP.SENSOR.EVENT.SENSORV1</destination>
+                </SessionAttributes>
+                <ConfigurableHeaders>
+                    <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                    <JMSExpiration>0</JMSExpiration>
+                    <JMSPriority>4</JMSPriority>
+                </ConfigurableHeaders>
+                <ConnectionReference>/SharedResources/Connections/JMS/JMS Connection.sharedjmscon</ConnectionReference>
+            </config>
+            <pd:inputBindings>
+                <ns2:ActivityInput>
+                    <Body>
+                        <xsl:value-of select="tib:render-xml($baseEventData/pfx:SensorEvent)"/>
+                    </Body>
+                </ns2:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="ApplyEventData">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>795</pd:x>
+            <pd:y>158</pd:y>
+            <config>
+                <variableName>baseEventData</variableName>
+            </config>
+            <pd:inputBindings>
+                <pfx:SensorEvent>
+                    <pfx:SchemaVersion>
+                        <xsl:value-of select="$Parse-SampleEvent/pfx:SensorEvent/pfx:SchemaVersion"/>
+                    </pfx:SchemaVersion>
+                    <pfx:SensorInformation>
+                        <pfx:SensorType>
+                            <xsl:value-of select="tib:tokenize($ReadCurrInputFile/ns1:ReadActivityOutputTextClass/fileContent/textContent, ' ')[1]"/>
+                        </pfx:SensorType>
+                        <pfx:Key>
+                            <xsl:value-of select="tib:tokenize($ReadCurrInputFile/ns1:ReadActivityOutputTextClass/fileContent/textContent, ' ')[2]"/>
+                        </pfx:Key>
+                    </pfx:SensorInformation>
+                    <pfx:EventInformation>
+                        <xsl:if test="$Parse-SampleEvent/pfx:SensorEvent/pfx:EventInformation/pfx:Latitude">
+                            <pfx:Latitude>
+                                <xsl:value-of select="$Parse-SampleEvent/pfx:SensorEvent/pfx:EventInformation/pfx:Latitude"/>
+                            </pfx:Latitude>
+                        </xsl:if>
+                        <xsl:if test="$Parse-SampleEvent/pfx:SensorEvent/pfx:EventInformation/pfx:Longitude">
+                            <pfx:Longitude>
+                                <xsl:value-of select="$Parse-SampleEvent/pfx:SensorEvent/pfx:EventInformation/pfx:Longitude"/>
+                            </pfx:Longitude>
+                        </xsl:if>
+                        <xsl:if test="$Parse-SampleEvent/pfx:SensorEvent/pfx:EventInformation/pfx:GPSTimestamp">
+                            <pfx:GPSTimestamp>
+                                <xsl:value-of select="$Parse-SampleEvent/pfx:SensorEvent/pfx:EventInformation/pfx:GPSTimestamp"/>
+                            </pfx:GPSTimestamp>
+                        </xsl:if>
+                        <pfx:EventTimestamp>
+                            <xsl:value-of select="$Parse-SampleEvent/pfx:SensorEvent/pfx:EventInformation/pfx:EventTimestamp"/>
+                        </pfx:EventTimestamp>
+                        <xsl:if test="$Parse-SampleEvent/pfx:SensorEvent/pfx:EventInformation/pfx:EventTimeZone">
+                            <pfx:EventTimeZone>
+                                <xsl:value-of select="$Parse-SampleEvent/pfx:SensorEvent/pfx:EventInformation/pfx:EventTimeZone"/>
+                            </pfx:EventTimeZone>
+                        </xsl:if>
+                        <pfx:Value>
+                            <xsl:value-of select="number(tib:tokenize($ReadCurrInputFile/ns1:ReadActivityOutputTextClass/fileContent/textContent, ' ')[$i+2])"/>
+                        </pfx:Value>
+                    </pfx:EventInformation>
+                </pfx:SensorEvent>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="GetCountOfDataPoints">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>580</pd:x>
+        <pd:y>155</pd:y>
+        <config>
+            <variableName>DataPointsCount</variableName>
+        </config>
+        <pd:inputBindings>
+            <count>
+                <xsl:value-of select="count(tib:tokenize($ReadCurrInputFile/ns1:ReadActivityOutputTextClass/fileContent/textContent, &quot; &quot;))"/>
+            </count>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Read-SampleEventFile">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>182</pd:x>
+        <pd:y>152</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <ns:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="&quot;C:\Projects\TEP\DeviceMonitoring\Testing\TestData\Flatfiles\SampleEvent.xml&quot;"/>
+                </fileName>
+            </ns:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1245</pd:x>
+        <pd:y>333</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>ReadCurrInputFile</pd:from>
+        <pd:to>GetCountOfDataPoints</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCountOfDataPoints</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read-SampleEventFile</pd:from>
+        <pd:to>Parse SampleEvent</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Read-SampleEventFile</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse SampleEvent</pd:from>
+        <pd:to>ReadCurrInputFile</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

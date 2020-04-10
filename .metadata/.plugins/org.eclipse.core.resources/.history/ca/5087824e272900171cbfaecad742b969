@@ -1,0 +1,43 @@
+/**
+ * @description 
+ * @author GAATLITEARD864L
+ * 	when a new device reading data element is received, remove the oldest data element and insert the new one
+ */
+ 
+rule Rules.End.RTCEnd {
+	attribute {
+		priority = 10;
+		forwardChain = true;
+	}
+	declare {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+		Concepts.sensorReading sensorReading;
+		Concepts.GVs	GVs;
+	}
+	when {
+		sensorReading.operationMode == GVs.MonitoringTag;
+		sensorReading@extId == sensorReadingEvent.DeviceReading_extId;
+	}
+	then {
+		String	functionName = "Rules.Init.Stateful.RTCEnd";
+		Events.OutgoingEvents.ForTesting.ReadingEventRTCEndReport evt = null; 
+		String	Str = "The following WER Rule(s) have fired: [" + sensorReadingEvent.WERRulesFired + "]";
+		double[] values = Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+		Str += "\n, the device readings are: [";
+		for(int i=0; i<sensorReading.readingValues@length ; i++){
+			Str += " " + sensorReading.readingValues[i];
+		}
+		Str += "]";
+		
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		long now = DateTime.getTimeInMillis(DateTime.now());
+		long execTime = now - sensorReadingEvent.transactionStarttime;
+		Str += "\nTransaction elapsed " + execTime +"Milli Seconds\n";
+		
+		evt = Event.createEvent("xslt://{{/Events/OutgoingEvents/ForTesting/ReadingEventRTCEndReport}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:ns1=\"http://www.nscorp.com/sensor/sensoralert/v1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:ns=\"http://www.nscorp.com/sensor/telemetryevent/v1.0\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" version=\"1.0\" exclude-result-prefixes=\"ns1 xsl ns xsd\">\n    <xsl:output method=\"xml\"/>\n    <xsl:param name=\"sensorReadingEvent\"/>\n    <xsl:param name=\"Str\"/>\n    <xsl:template match=\"/\">\n        <createEvent>\n            <event>\n                <payload>\n                    <ns1:SensorTelemetryAlert>\n                        <ns1:SensorInformation>\n                            <ns1:SensorType>\n                                <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:SensorType\"/>\n                            </ns1:SensorType>\n                            <ns1:Key>\n                                <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:Key\"/>\n                            </ns1:Key>\n                        </ns1:SensorInformation>\n                        <ns1:TriggeringEventInformation>\n                            <xsl:if test=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:Latitude\">\n                                <ns1:Latitude>\n                                    <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:Latitude\"/>\n                                </ns1:Latitude>\n                            </xsl:if>\n                            <xsl:if test=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:Longitude\">\n                                <ns1:Longitude>\n                                    <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:Longitude\"/>\n                                </ns1:Longitude>\n                            </xsl:if>\n                            <xsl:if test=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:GPSTimestamp\">\n                                <ns1:GPSTimestamp>\n                                    <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:GPSTimestamp\"/>\n                                </ns1:GPSTimestamp>\n                            </xsl:if>\n                            <ns1:EventTimestamp>\n                                <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:EventTimestamp\"/>\n                            </ns1:EventTimestamp>\n                            <xsl:if test=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:EventTimeZone\">\n                                <ns1:EventTimeZone>\n                                    <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:EventTimeZone\"/>\n                                </ns1:EventTimeZone>\n                            </xsl:if>\n                            <ns1:Value>\n                                <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:Value\"/>\n                            </ns1:Value>\n                        </ns1:TriggeringEventInformation>\n                        <ns1:Alert>\n                            <ns1:AlertTimestamp>\n                                <xsl:value-of select=\"current-dateTime()\"/>\n                            </ns1:AlertTimestamp>\n                            <ns1:AlertMessage>\n                                <xsl:value-of select=\"$Str\"/>\n                            </ns1:AlertMessage>\n                            <ns1:AboveBelowMean>\n                                <xsl:value-of select=\"&quot;N/A&quot;\"/>\n                            </ns1:AboveBelowMean>\n                            <ns1:Trend>\n                                <xsl:value-of select=\"&quot;N/A&quot;\"/>\n                            </ns1:Trend>\n                        </ns1:Alert>\n                    </ns1:SensorTelemetryAlert>\n                </payload>\n            </event>\n        </createEvent>\n    </xsl:template>\n</xsl:stylesheet>");
+		if(Event.sendEvent(evt)==null)
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , Str + ", Device: " + sensorReading@extId, null);
+		else
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , Str + " ERROR SENDING RTC END REPORT NOTIFICATION" + ", Device: " + sensorReading@extId, null);
+	}
+}

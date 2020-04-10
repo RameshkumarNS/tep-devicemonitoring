@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<event:SimpleEvent xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:event="http:///com/tibco/cep/designtime/core/model/event" namespace="/Events/IncomingEvents/" folder="/Events/IncomingEvents/" name="DeviceReading" description="" GUID="C3FA0840-84F6-CE2D-5C64-24280E120B33" ownerProjectName="DeviceMonitor" payloadString="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&#xA;&lt;payload ref=&quot;pfx2:SensorEvent&quot;/>" ttlUnits="Seconds" channelURI="/Channels/DeviceRecievingChannel" destinationName="ReadingRecievingDestination">
+  <properties name="DeviceReading_extId" ownerProjectName="DeviceMonitor" ownerPath="/Events/IncomingEvents/DeviceReading"/>
+  <properties name="WERRulesFired" ownerProjectName="DeviceMonitor" ownerPath="/Events/IncomingEvents/DeviceReading"/>
+  <properties name="transactionStarttime" ownerProjectName="DeviceMonitor" type="long" ownerPath="/Events/IncomingEvents/DeviceReading"/>
+  <namespaceEntries prefix="xsd" namespace="http://www.w3.org/2001/XMLSchema"/>
+  <namespaceEntries prefix="pfx2" namespace="http://www.nscorp.com/sensor/telemetryevent/v1.0"/>
+  <registryImportEntries location="SharedResources\Schemas\SensorTelemetryEventV1.0.xsd" namespace="http://www.nscorp.com/sensor/telemetryevent/v1.0"/>
+  <expiryAction folder="/Events/IncomingEvents/DeviceReading" name="DeviceAlertEvent_expiryAction" ownerProjectName="DeviceMonitor" actionText="" conditionText="">
+    <symbols>
+      <symbolList idName="devicealertevent" type="/Events/IncomingEvents/DeviceReading"/>
+    </symbols>
+  </expiryAction>
+</event:SimpleEvent>

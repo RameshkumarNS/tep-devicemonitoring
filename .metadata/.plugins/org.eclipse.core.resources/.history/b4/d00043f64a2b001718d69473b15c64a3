@@ -1,0 +1,15 @@
+/**
+ * @description 
+ */
+Events.OutgoingEvents.OutBaseEvent rulefunction RuleFunctions.Utility.PublishEvent {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+		Events.OutgoingEvents.OutBaseEvent evt;
+	}
+	body {
+		if(GVs.)
+		return Event.sendEvent(evt);
+	}
+}

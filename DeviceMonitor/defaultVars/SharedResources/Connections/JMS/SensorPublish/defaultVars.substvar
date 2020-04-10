@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<repository xmlns="http://www.tibco.com/xmlns/repo/types/2002">
+    <globalVariables>
+        <globalVariable>
+            <name>DeviceAlertPublishQueue</name>
+            <value>SENSORV1.SENSOR.ALERT.TEP</value>
+            <type>String</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description/>
+            <constraint/>
+            <modTime>1492444759144</modTime>
+        </globalVariable>
+        <globalVariable>
+            <name>DeviceLimitPublishQueue</name>
+            <value>SENSORV1.SENSOR.LIMITS.TEP</value>
+            <type>String</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description/>
+            <constraint/>
+            <modTime>1491857062883</modTime>
+        </globalVariable>
+        <globalVariable>
+            <name>ReadingEventRTCEndNotificationPublishQueue</name>
+            <value>TEP.TEST1.EVENT</value>
+            <type>String</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description/>
+            <constraint/>
+            <modTime>1492781560834</modTime>
+        </globalVariable>
+    </globalVariables>
+</repository>

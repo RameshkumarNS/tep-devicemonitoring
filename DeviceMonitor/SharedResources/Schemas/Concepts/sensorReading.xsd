@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="www.tibco.com/be/ontology/Concepts/sensorReading" xmlns:ns0="www.tibco.com/be/ontology/_BaseConcept" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="www.tibco.com/be/ontology/Concepts/sensorReading" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+    <xs:import namespace="www.tibco.com/be/ontology/_BaseConcept"/>
+    <xs:complexType name="sensorReading" block="extension">
+        <xs:complexContent>
+            <xs:extension base="ns0:_BaseConcept">
+                <xs:sequence>
+                    <xs:element name="deviceKey" type="xs:string" minOccurs="0"/>
+                    <xs:element name="deviceType" type="xs:string" minOccurs="0"/>
+                    <xs:element name="readingValues" type="xs:double" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="operationMode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="StatsDateTime" type="xs:dateTime" minOccurs="0"/>
+                    <xs:element name="StatsMethodName" type="xs:string" minOccurs="0"/>
+                    <xs:element name="variance" type="xs:double" minOccurs="0"/>
+                    <xs:element name="meanValue" type="xs:double" minOccurs="0"/>
+                    <xs:element name="stdDevValue" type="xs:double" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="sensorReading" type="tns:sensorReading"/>
+</xs:schema>

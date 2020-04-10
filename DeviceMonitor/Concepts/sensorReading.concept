@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element:Concept xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:element="http:///com/tibco/cep/designtime/core/model/element" namespace="/Concepts/" folder="/Concepts/" name="sensorReading" description="" GUID="5FB31B4A-5447-8F55-271B-FA449B42A233" ownerProjectName="DeviceMonitor" superConceptPath="" autoStartStateMachine="true">
+  <extendedProperties/>
+  <properties name="deviceKey" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/sensorReading"/>
+  <properties name="deviceType" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/sensorReading"/>
+  <properties name="readingValues" ownerProjectName="DeviceMonitor" type="double" array="true" ownerPath="/Concepts/sensorReading"/>
+  <properties name="operationMode" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/sensorReading"/>
+  <properties name="StatsDateTime" ownerProjectName="DeviceMonitor" type="DateTime" ownerPath="/Concepts/sensorReading"/>
+  <properties name="StatsMethodName" ownerProjectName="DeviceMonitor" ownerPath="/Concepts/sensorReading"/>
+  <properties name="variance" ownerProjectName="DeviceMonitor" type="double" ownerPath="/Concepts/sensorReading"/>
+  <properties name="meanValue" ownerProjectName="DeviceMonitor" type="double" ownerPath="/Concepts/sensorReading"/>
+  <properties name="stdDevValue" ownerProjectName="DeviceMonitor" type="double" ownerPath="/Concepts/sensorReading"/>
+</element:Concept>

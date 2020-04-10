@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.tibco.cep.studio.debug.core.ApplicationLaunch">
+<stringAttribute key="ATTR_BE_STUDIO_DEBUG.CDD_FILE" value="C:\Projects\TEP\DeviceMonitoring\DeviceMonitor\Deployments\DeviceMonitor.cdd"/>
+<booleanAttribute key="ATTR_BE_STUDIO_DEBUG.CLASSPATH_CHANGE" value="false"/>
+<stringAttribute key="ATTR_BE_STUDIO_DEBUG.CMD_STARTUP_OPTS" value=""/>
+<listAttribute key="ATTR_BE_STUDIO_DEBUG.CUSTOM_FUNCTIONS_LIBRARIES">
+<listEntry value="Default Custom Function Libraries"/>
+</listAttribute>
+<stringAttribute key="ATTR_BE_STUDIO_DEBUG.EAR_FILE" value="C:\Projects\TEP\DeviceMonitoring\Working Dir\DeviceMonitor.ear"/>
+<stringAttribute key="ATTR_BE_STUDIO_DEBUG.PROJECT_NAME" value="DeviceMonitor"/>
+<listAttribute key="ATTR_BE_STUDIO_DEBUG.THIRD_PARTY_LIBRARIES">
+<listEntry value="Default Third Party Libraries"/>
+</listAttribute>
+<stringAttribute key="ATTR_BE_STUDIO_DEBUG.UNIT_NAME" value="DeviceMonitor2_local"/>
+<stringAttribute key="ATTR_BE_STUDIO_DEBUG.VM_ARGS" value=""/>
+<stringAttribute key="ATTR_BE_STUDIO_DEBUG.WORKING_DIR" value="C:\Projects\TEP\DeviceMonitoring\Working Dir"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/DeviceMonitor"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<mapAttribute key="org.eclipse.debug.core.environmentVariables">
+<mapEntry key="PATH" value="C:/tibco/be/5.1/hotfix/bin;C:/tibco/be/5.1/bin;C:/tibco/as/2.1/lib"/>
+</mapAttribute>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+</listAttribute>
+</launchConfiguration>

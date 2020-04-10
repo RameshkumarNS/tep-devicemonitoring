@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://www.nscorp.com/sensor/telemetrylimits/v1.0" xmlns:pfx="http://www.nscorp.com/sensor/sensoralert/v1.0">
+    <xsd:import namespace="http://www.nscorp.com/sensor/sensoralert/v1.0" schemaLocation="/SharedResources/Schemas/SensorTelemetryAlertEventV1.0.xsd"/>
+    <xsd:import namespace="http://www.nscorp.com/sensor/telemetrylimits/v1.0" schemaLocation="/SharedResources/Schemas/SensorReading.xsd"/>
+    <pd:name>BusinessProcesses/DeviceMonitoring/SensorAlertsVerification/VerifyRTCEndReport.process</pd:name>
+    <pd:startName>JMS Queue Receiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="JMS Queue Receiver">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>277</pd:x>
+        <pd:y>38</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>2</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>TEP.TEST1.EVENT</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/Connections/JMS/JMS Connection.sharedjmscon</ConnectionReference>
+            <ApplicationProperties>/SharedResources/JMS Propertis/DevideReadingRTCReport.sharedjmsapp</ApplicationProperties>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1698</pd:endX>
+    <pd:endY>38</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <dataPtsCount>
+            <xsd:element name="root" type="xsd:int"/>
+        </dataPtsCount>
+        <deviceInformation>
+            <xsd:element name="group">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Parameters">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="deviceKey" type="xsd:string"/>
+                                    <xsd:element name="deviceType" type="xsd:string"/>
+                                    <xsd:element name="OpMode" type="xsd:string"/>
+                                    <xsd:element name="StatsDateTime" type="xsd:string"/>
+                                    <xsd:element name="mean" type="xsd:double"/>
+                                    <xsd:element name="stdv" type="xsd:double"/>
+                                    <xsd:element name="oneSigma" type="xsd:double"/>
+                                    <xsd:element name="neg_oneSigma" type="xsd:double"/>
+                                    <xsd:element name="twoSigma" type="xsd:double"/>
+                                    <xsd:element name="neg_twoSigma" type="xsd:double"/>
+                                    <xsd:element name="threeSigma" type="xsd:double"/>
+                                    <xsd:element name="neg_threeSigma" type="xsd:double"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="dataset">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="point1" type="xsd:double"/>
+                                    <xsd:element name="point2" type="xsd:double"/>
+                                    <xsd:element name="point3" type="xsd:double"/>
+                                    <xsd:element name="point4" type="xsd:double"/>
+                                    <xsd:element name="point5" type="xsd:double"/>
+                                    <xsd:element name="point6" type="xsd:double"/>
+                                    <xsd:element name="point7" type="xsd:double"/>
+                                    <xsd:element name="point8" type="xsd:double"/>
+                                    <xsd:element name="point9" type="xsd:double"/>
+                                    <xsd:element name="point10" type="xsd:double"/>
+                                    <xsd:element name="point11" type="xsd:double"/>
+                                    <xsd:element name="point12" type="xsd:double"/>
+                                    <xsd:element name="point13" type="xsd:double"/>
+                                    <xsd:element name="point14" type="xsd:double"/>
+                                    <xsd:element name="point15" type="xsd:double"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="RTCReported_WERFired" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </deviceInformation>
+        <ReportVerification>
+            <xsd:element name="result">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Errors" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ReportVerification>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1491573093963</pd:targetNamespace>
+    <pd:activity name="Assign device info">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>271</pd:x>
+        <pd:y>388</pd:y>
+        <config>
+            <variableName>deviceInformation</variableName>
+        </config>
+        <pd:inputBindings>
+            <group>
+                <Parameters>
+                    <deviceKey>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:deviceKey"/>
+                    </deviceKey>
+                    <deviceType>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:deviceType"/>
+                    </deviceType>
+                    <OpMode>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:operationMode"/>
+                    </OpMode>
+                    <StatsDateTime>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:StatsDateTime"/>
+                    </StatsDateTime>
+                    <mean>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:meanValue"/>
+                    </mean>
+                    <stdv>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:stdDevValue"/>
+                    </stdv>
+                    <oneSigma>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:meanValue +  $Parse-XML/pfx2:SensorReading/pfx2:stdDevValue"/>
+                    </oneSigma>
+                    <neg_oneSigma>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:meanValue  -  $Parse-XML/pfx2:SensorReading/pfx2:stdDevValue"/>
+                    </neg_oneSigma>
+                    <twoSigma>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:meanValue +  (2*$Parse-XML/pfx2:SensorReading/pfx2:stdDevValue)"/>
+                    </twoSigma>
+                    <neg_twoSigma>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:meanValue -  (2*$Parse-XML/pfx2:SensorReading/pfx2:stdDevValue)"/>
+                    </neg_twoSigma>
+                    <threeSigma>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:meanValue +  (3*$Parse-XML/pfx2:SensorReading/pfx2:stdDevValue)"/>
+                    </threeSigma>
+                    <neg_threeSigma>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:meanValue -  (3*$Parse-XML/pfx2:SensorReading/pfx2:stdDevValue)"/>
+                    </neg_threeSigma>
+                </Parameters>
+                <dataset>
+                    <point1>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-14]"/>
+                    </point1>
+                    <point2>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-13]"/>
+                    </point2>
+                    <point3>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-12]"/>
+                    </point3>
+                    <point4>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-11]"/>
+                    </point4>
+                    <point5>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-10]"/>
+                    </point5>
+                    <point6>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-9]"/>
+                    </point6>
+                    <point7>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-8]"/>
+                    </point7>
+                    <point8>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-7]"/>
+                    </point8>
+                    <point9>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-6]"/>
+                    </point9>
+                    <point10>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-5]"/>
+                    </point10>
+                    <point11>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-4]"/>
+                    </point11>
+                    <point12>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-3]"/>
+                    </point12>
+                    <point13>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-2]"/>
+                    </point13>
+                    <point14>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[($dataPtsCount/root)-1]"/>
+                    </point14>
+                    <point15>
+                        <xsl:value-of select="$Parse-XML/pfx2:SensorReading/pfx2:readingValues[$dataPtsCount/root - 0]"/>
+                    </point15>
+                </dataset>
+                <RTCReported_WERFired>
+                    <xsl:value-of select="upper-case(tib:trim($JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired))"/>
+                </RTCReported_WERFired>
+            </group>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign-1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>412</pd:x>
+        <pd:y>247</pd:y>
+        <config>
+            <variableName>ReportVerification</variableName>
+        </config>
+        <pd:inputBindings>
+            <result>
+                <Errors>
+                    <xsl:value-of select="concat($ReportVerification/result/Errors, &quot;WER1&quot;)"/>
+                </Errors>
+            </result>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign-2">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>654</pd:x>
+        <pd:y>242</pd:y>
+        <config>
+            <variableName>ReportVerification</variableName>
+        </config>
+        <pd:inputBindings>
+            <result>
+                <Errors>
+                    <xsl:value-of select="concat($ReportVerification/result/Errors, &quot; WER2&quot;)"/>
+                </Errors>
+            </result>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign-3">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>864</pd:x>
+        <pd:y>241</pd:y>
+        <config>
+            <variableName>ReportVerification</variableName>
+        </config>
+        <pd:inputBindings>
+            <result>
+                <Errors>
+                    <xsl:value-of select="concat($ReportVerification/result/Errors, &quot; WER3&quot;)"/>
+                </Errors>
+            </result>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign-4">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>1025</pd:x>
+        <pd:y>241</pd:y>
+        <config>
+            <variableName>ReportVerification</variableName>
+        </config>
+        <pd:inputBindings>
+            <result>
+                <Errors>
+                    <xsl:value-of select="concat($ReportVerification/result/Errors, &quot; WER4&quot;)"/>
+                </Errors>
+            </result>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign-5">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>1183</pd:x>
+        <pd:y>241</pd:y>
+        <config>
+            <variableName>ReportVerification</variableName>
+        </config>
+        <pd:inputBindings>
+            <result>
+                <Errors>
+                    <xsl:value-of select="concat($ReportVerification/result/Errors, &quot; WER5&quot;)"/>
+                </Errors>
+            </result>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign-6">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>1325</pd:x>
+        <pd:y>241</pd:y>
+        <config>
+            <variableName>ReportVerification</variableName>
+        </config>
+        <pd:inputBindings>
+            <result>
+                <Errors>
+                    <xsl:value-of select="concat($ReportVerification/result/Errors, &quot; WER6&quot;)"/>
+                </Errors>
+            </result>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign-7">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>1475</pd:x>
+        <pd:y>241</pd:y>
+        <config>
+            <variableName>ReportVerification</variableName>
+        </config>
+        <pd:inputBindings>
+            <result>
+                <Errors>
+                    <xsl:value-of select="concat($ReportVerification/result/Errors, &quot; WER7&quot;)"/>
+                </Errors>
+            </result>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign-8">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>1621</pd:x>
+        <pd:y>241</pd:y>
+        <config>
+            <variableName>ReportVerification</variableName>
+        </config>
+        <pd:inputBindings>
+            <result>
+                <Errors>
+                    <xsl:value-of select="concat($ReportVerification/result/Errors, &quot; WER8&quot;)"/>
+                </Errors>
+            </result>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>1143</pd:x>
+        <pd:y>38</pd:y>
+        <config>
+            <ConfirmEvent>JMS Queue Receiver</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="InitReportVerification">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>269</pd:x>
+        <pd:y>191</pd:y>
+        <config>
+            <variableName>ReportVerification</variableName>
+        </config>
+        <pd:inputBindings>
+            <result>
+                <Errors>
+                    <xsl:value-of select="&quot;&quot;"/>
+                </Errors>
+            </result>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null-1">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>527</pd:x>
+        <pd:y>388</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null-2">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>782</pd:x>
+        <pd:y>388</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null-3">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>953</pd:x>
+        <pd:y>388</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null-4">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>1114</pd:x>
+        <pd:y>388</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null-5">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>1276</pd:x>
+        <pd:y>388</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null-6">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>1414</pd:x>
+        <pd:y>388</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null-7">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>1554</pd:x>
+        <pd:y>388</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null-8">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>1704</pd:x>
+        <pd:y>388</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>637</pd:x>
+        <pd:y>38</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx2:SensorReading"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/Body"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Write File">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>936</pd:x>
+        <pd:y>38</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <append>true</append>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns2:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="&quot;C:\Projects\TEP\DeviceMonitoring\Testing\TestData\RTCEndReport.txt&quot;"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="concat( &quot;&#xD;&#xA;&quot;,current-dateTime() ,', WERRulesFired:[', $JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired , ']',  &quot;&#xD;&#xA;&quot;,  tib:render-xml($Parse-XML/pfx2:SensorReading, true(), true()))"/>
+                </textContent>
+            </ns2:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Write-File-1">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>1865</pd:x>
+        <pd:y>389</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <append>true</append>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns2:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="&quot;C:\Projects\TEP\DeviceMonitoring\Testing\TestData\RTCEndReport_Errors.txt&quot;"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="concat( &quot;&#xD;&#xA;&quot;,current-dateTime() ,', the following rules are reported in error:[', $ReportVerification/result/Errors , ']',  &quot;&#xD;&#xA;&quot;,  tib:render-xml($Parse-XML/pfx2:SensorReading, true(), true()))"/>
+                </textContent>
+            </ns2:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Set data points count">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>430</pd:x>
+        <pd:y>122</pd:y>
+        <config>
+            <variableName>dataPtsCount</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:value-of select="count($Parse-XML/pfx2:SensorReading/pfx2:readingValues)"/>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Write File</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Receiver</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Write File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign device info</pd:from>
+        <pd:to>Assign-1</pd:to>
+        <pd:xpathDescription>Error re WER1</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(  (abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/threeSigma) - $deviceInformation/group/Parameters/mean)
+or
+(abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_threeSigma - $deviceInformation/group/Parameters/mean))
+) 
+ !=(contains(tib:trim($deviceInformation/group/RTCReported_WERFired), "WER1"))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Set data points count</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InitReportVerification</pd:from>
+        <pd:to>Assign device info</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$dataPtsCount/root &gt;14</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-4</pd:from>
+        <pd:to>Null-5</pd:to>
+        <pd:xpathDescription>no error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-5</pd:from>
+        <pd:to>Null-6</pd:to>
+        <pd:xpathDescription>no error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-6</pd:from>
+        <pd:to>Null-7</pd:to>
+        <pd:xpathDescription>no error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-7</pd:from>
+        <pd:to>Null-8</pd:to>
+        <pd:xpathDescription>no error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-8</pd:from>
+        <pd:to>Write-File-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>tib:trim($ReportVerification/result/Errors) !=""</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign device info</pd:from>
+        <pd:to>Null-1</pd:to>
+        <pd:xpathDescription>no error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign-1</pd:from>
+        <pd:to>Null-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-1</pd:from>
+        <pd:to>Assign-2</pd:to>
+        <pd:xpathDescription>Error re WER2</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>( 
+(
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean)
+)
+)
+)
+ !=(contains(tib:trim($JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired), "WER2"))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-1</pd:from>
+        <pd:to>Null-2</pd:to>
+        <pd:xpathDescription>no error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign-2</pd:from>
+        <pd:to>Null-2</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-2</pd:from>
+        <pd:to>Null-3</pd:to>
+        <pd:xpathDescription>no error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-3</pd:from>
+        <pd:to>Null-4</pd:to>
+        <pd:xpathDescription>no error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-2</pd:from>
+        <pd:to>Assign-3</pd:to>
+        <pd:xpathDescription>Error re WER3</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/Parameters/mean) or 
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/Parameters/mean) or 
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/Parameters/mean) or 
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) &gt; abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/mean)
+)
+)
+)
+ !=(contains(tib:trim($JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired), "WER3"))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-3</pd:from>
+        <pd:to>Assign-4</pd:to>
+        <pd:xpathDescription>Error re WER4</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(
+(
+$deviceInformation/group/dataset/point8 &gt; $deviceInformation/group/Parameters/mean and  
+$deviceInformation/group/dataset/point9 &gt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point10 &gt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/mean
+)
+ or
+(
+$deviceInformation/group/dataset/point8 &lt; $deviceInformation/group/Parameters/mean and  
+$deviceInformation/group/dataset/point9 &lt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point10 &lt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/mean
+)
+)
+ !=(contains(tib:trim($JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired), "WER4"))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-4</pd:from>
+        <pd:to>Assign-5</pd:to>
+        <pd:xpathDescription>Error re WER5</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(
+( 
+$deviceInformation/group/dataset/point10 &lt; $deviceInformation/group/dataset/point11 and 
+$deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/dataset/point12 and 
+$deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/dataset/point13 and 
+$deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/dataset/point14 and 
+$deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/dataset/point15
+) or (
+$deviceInformation/group/dataset/point10 &gt; $deviceInformation/group/dataset/point11 and 
+$deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/dataset/point12 and 
+$deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/dataset/point13 and 
+$deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/dataset/point14 and 
+$deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/dataset/point15 
+)
+)
+ !=(contains(tib:trim($JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired), "WER5"))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-5</pd:from>
+        <pd:to>Assign-6</pd:to>
+        <pd:xpathDescription>Error re WER6</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(
+($deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point10 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point10 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point9 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point9 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point8 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point8 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point7 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point7 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point6 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point6 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point5 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point5 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point4 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point4 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point3 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point3 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point2 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point2 &gt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point1 &lt; $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point1 &gt; $deviceInformation/group/Parameters/neg_oneSigma)
+)
+ !=(contains(tib:trim($JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired), "WER6"))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-6</pd:from>
+        <pd:to>Assign-7</pd:to>
+        <pd:xpathDescription>Error re WER7</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(
+((
+$deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/dataset/point14  and 
+$deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/dataset/point13  and 
+$deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/dataset/point12  and 
+$deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/dataset/point11  and 
+$deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/dataset/point10  and 
+$deviceInformation/group/dataset/point10 &lt; $deviceInformation/group/dataset/point9  and 
+$deviceInformation/group/dataset/point9 &gt; $deviceInformation/group/dataset/point8  and 
+$deviceInformation/group/dataset/point8 &lt; $deviceInformation/group/dataset/point7  and 
+$deviceInformation/group/dataset/point7 &gt; $deviceInformation/group/dataset/point6  and 
+$deviceInformation/group/dataset/point6 &lt; $deviceInformation/group/dataset/point5  and 
+$deviceInformation/group/dataset/point5 &gt; $deviceInformation/group/dataset/point4  and 
+$deviceInformation/group/dataset/point4 &lt; $deviceInformation/group/dataset/point3  and 
+$deviceInformation/group/dataset/point3 &gt; $deviceInformation/group/dataset/point2
+))
+ or (( 
+$deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/dataset/point14  and 
+$deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/dataset/point13  and 
+$deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/dataset/point12  and 
+$deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/dataset/point11  and 
+$deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/dataset/point10  and 
+$deviceInformation/group/dataset/point10 &gt; $deviceInformation/group/dataset/point9  and 
+$deviceInformation/group/dataset/point9 &lt; $deviceInformation/group/dataset/point8  and 
+$deviceInformation/group/dataset/point8 &gt; $deviceInformation/group/dataset/point7  and 
+$deviceInformation/group/dataset/point7 &lt; $deviceInformation/group/dataset/point6  and 
+$deviceInformation/group/dataset/point6 &gt; $deviceInformation/group/dataset/point5  and 
+$deviceInformation/group/dataset/point5 &lt; $deviceInformation/group/dataset/point4  and 
+$deviceInformation/group/dataset/point4 &gt; $deviceInformation/group/dataset/point3  and 
+$deviceInformation/group/dataset/point3 &lt; $deviceInformation/group/dataset/point2
+))
+)
+ !=(contains(tib:trim($JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired), "WER7"))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-7</pd:from>
+        <pd:to>Assign-8</pd:to>
+        <pd:xpathDescription>Error re WER8</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(
+($deviceInformation/group/dataset/point8 &gt; $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point8 &lt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point9 &gt; $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point9 &lt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point10 &gt; $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point10 &lt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point11 &gt; $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point11 &lt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point12 &gt; $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point12 &lt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point13 &gt; $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point13 &lt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point14 &gt; $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point14 &lt; $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point15 &gt; $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point15 &lt; $deviceInformation/group/Parameters/neg_oneSigma)
+)
+ !=(contains(tib:trim($JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired), "WER8"))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign-3</pd:from>
+        <pd:to>Null-3</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign-4</pd:from>
+        <pd:to>Null-4</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign-5</pd:from>
+        <pd:to>Null-5</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign-6</pd:from>
+        <pd:to>Null-6</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign-7</pd:from>
+        <pd:to>Null-7</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign-8</pd:from>
+        <pd:to>Null-8</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-8</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InitReportVerification</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set data points count</pd:from>
+        <pd:to>InitReportVerification</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

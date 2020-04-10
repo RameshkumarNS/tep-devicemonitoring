@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration:StudioProjectConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:configuration="http:///com/tibco/cep/studio/common/configuration/model/project_configuration.ecore" name="DeviceMonitor" version="5.1.4" build="056">
+  <projectLibEntries path="C:\code\TIBCO\src\Libraries\TEPBESharedLib.projlib" timestamp="1484072486907"/>
+  <enterpriseArchiveConfiguration name="DeviceMonitor" author="pa3es" version="2" path="C:\Projects\TEP\DeviceMonitoring\Working Dir\DeviceMonitor.ear" overwrite="true"/>
+  <bpmnProcessSettings/>
+</configuration:StudioProjectConfiguration>

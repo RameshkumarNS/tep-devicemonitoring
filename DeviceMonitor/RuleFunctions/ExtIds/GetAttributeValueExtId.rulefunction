@@ -1,0 +1,16 @@
+/**
+ * @description 
+ */
+String rulefunction RuleFunctions.ExtIds.GetAttributeValueExtId {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+		String sensorId;
+		String attributeName;
+		long creationTimeMillis;
+	}
+	body {
+		return String.format("ATV-%s-%s-%s", sensorId, attributeName, creationTimeMillis);	
+	}
+}

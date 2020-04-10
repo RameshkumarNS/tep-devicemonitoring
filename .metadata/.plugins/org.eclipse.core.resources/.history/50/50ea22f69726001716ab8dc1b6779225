@@ -1,0 +1,28 @@
+/**
+ * @description 
+ * @author GAATLITEARD864L
+ * 	when a new device reading data element is received, remove the oldest data element and insert the new one
+ */
+ 
+rule Rules.End.RTCEnd {
+	attribute {
+		priority = 10;
+		forwardChain = true;
+	}
+	declare {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+		Concepts.sensorReading sensorReading;
+		Concepts.GVs	GVs;
+	}
+	when {
+		sensorReading.operationMode == GVs.MonitoringTag;
+		sensorReading@extId == sensorReadingEvent.DeviceReading_extId;
+	}
+	then {
+		String	functionName = "Rules.Init.Stateful.RTCEnd";
+		String	Str = "The following WER Rule(s) have fired: [" + sensorReadingEvent.WERRulesFired + "]";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , Str + ", Device: " + sensorReading@extId, null);
+		Events.OutgoingEvents.ForTesting.ReadingEventRTCEndReport evt = Events.OutgoingEvents.ForTesting.ReadingEventRTCEndReport(Str); 
+	}
+}

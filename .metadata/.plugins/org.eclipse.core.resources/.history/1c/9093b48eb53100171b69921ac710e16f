@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cluster xmlns="http://tibco.com/businessevents/configuration/5.1">
+    <revision>
+        <version>544</version>
+        <author>zu229</author>
+        <date>2017/03/21 13:58:10</date>
+        <comment/>
+    </revision>
+    <name>Location</name>
+    <message-encoding>UTF-8</message-encoding>
+    <object-management>
+        <cache-manager>
+            <provider>
+                <name>TIBCO</name>
+            </provider>
+            <cache-agent-quorum/>
+            <backup-copies>1</backup-copies>
+            <entity-cache-size>200000</entity-cache-size>
+            <discovery-url/>
+            <listen-url/>
+            <remote-listen-url/>
+            <protocol-timeout>-1</protocol-timeout>
+            <read-timeout>60000</read-timeout>
+            <write-timeout>60000</write-timeout>
+            <lock-timeout>-1</lock-timeout>
+            <shoutdown-wait>8500</shoutdown-wait>
+            <workerthreads-count>4</workerthreads-count>
+            <explicit-tuple>true</explicit-tuple>
+            <object-table>
+                <max-size>1000000</max-size>
+            </object-table>
+            <backing-store>
+                <persistence-option>Shared All</persistence-option>
+                <cache-aside>true</cache-aside>
+                <cache-loader-class/>
+                <enforce-pools>true</enforce-pools>
+                <strategy>jdbc</strategy>
+                <type>DB2</type>
+                <data-store-path/>
+                <persistence-policy>ASYNC</persistence-policy>
+                <parallel-recovery>true</parallel-recovery>
+                <primary-connection>
+                    <uri>/SharedResources/Connections/JDBC/BackingStore.sharedjdbc</uri>
+                    <initial-size>4</initial-size>
+                    <max-size>20</max-size>
+                    <min-size>4</min-size>
+                </primary-connection>
+            </backing-store>
+            <domain-objects>
+                <default-mode>cache</default-mode>
+                <check-for-version>true</check-for-version>
+                <constant>false</constant>
+                <enable-tracking>true</enable-tracking>
+                <evict-on-update>false</evict-on-update>
+                <cache-limited>true</cache-limited>
+                <subscribe>true</subscribe>
+                <pre-load-enabled>true</pre-load-enabled>
+                <pre-load-fetch-size>0</pre-load-fetch-size>
+                <pre-load-handles>true</pre-load-handles>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/SharedLib/Concepts/LogVariables</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>LogLevelError</name>
+                            </property>
+                            <property>
+                                <name>LogLevelInfo</name>
+                            </property>
+                            <property>
+                                <name>LogLevelWarning</name>
+                            </property>
+                            <property>
+                                <name>LogLevelDebug</name>
+                            </property>
+                            <property>
+                                <name>LogLevel</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/SharedLib/Scorecards/ActivityIndicatorCodes</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>Add</name>
+                            </property>
+                            <property>
+                                <name>Delete</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/SharedLib/Scorecards/EquipmentGroupCodes</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>RailCar</name>
+                            </property>
+                            <property>
+                                <name>Chassis</name>
+                            </property>
+                            <property>
+                                <name>Loco</name>
+                            </property>
+                            <property>
+                                <name>Intermodal</name>
+                            </property>
+                            <property>
+                                <name>Equipment</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/SharedLib/Scorecards/StatusCodes</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>Received</name>
+                            </property>
+                            <property>
+                                <name>Invalid</name>
+                            </property>
+                            <property>
+                                <name>Deleted</name>
+                            </property>
+                            <property>
+                                <name>Success</name>
+                            </property>
+                            <property>
+                                <name>Processed</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/SharedLib/Scorecards/StatusMessages</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>EventReceived</name>
+                            </property>
+                            <property>
+                                <name>MissingEquipmentInitOrNbr</name>
+                            </property>
+                            <property>
+                                <name>MissingEventDateTime</name>
+                            </property>
+                            <property>
+                                <name>MissingScannerId</name>
+                            </property>
+                            <property>
+                                <name>EventNotLatest</name>
+                            </property>
+                            <property>
+                                <name>Complete</name>
+                            </property>
+                            <property>
+                                <name>MissingEventCode</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/SharedLib/Events/Logging/CLEExceptionEvent</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties/>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>cache</mode>
+                    <pre-load-fetch-size>100000</pre-load-fetch-size>
+                    <uri>/Concepts/Location/PlannedEquipment</uri>
+                    <backing-store>
+                        <enabled>true</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>ClassCode</name>
+                                <max-size>25</max-size>
+                            </property>
+                            <property>
+                                <name>EquipInit</name>
+                                <max-size>12</max-size>
+                            </property>
+                            <property>
+                                <name>EquipNbr</name>
+                                <max-size>15</max-size>
+                            </property>
+                            <property>
+                                <name>LastEquipPlannedEventDT</name>
+                            </property>
+                            <property>
+                                <name>OpRd</name>
+                                <max-size>25</max-size>
+                            </property>
+                            <property>
+                                <name>OpStaCd</name>
+                                <max-size>25</max-size>
+                            </property>
+                            <property>
+                                <name>PlannedEvents</name>
+                            </property>
+                            <property>
+                                <name>IsFDOL</name>
+                            </property>
+                            <property>
+                                <name>InitialInEventDateTime</name>
+                            </property>
+                            <property>
+                                <name>PlannedInEventDateTime</name>
+                            </property>
+                            <property>
+                                <name>PlannedInEventCode</name>
+                                <max-size>12</max-size>
+                            </property>
+                            <property>
+                                <name>ActualInEventDateTime</name>
+                            </property>
+                            <property>
+                                <name>ActualInEventCode</name>
+                                <max-size>12</max-size>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>cache</mode>
+                    <pre-load-enabled>false</pre-load-enabled>
+                    <pre-load-fetch-size>10000</pre-load-fetch-size>
+                    <pre-load-handles>false</pre-load-handles>
+                    <uri>/Concepts/Location/PlannedEvent</uri>
+                    <backing-store>
+                        <enabled>true</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>ClassCode</name>
+                                <max-size>25</max-size>
+                            </property>
+                            <property>
+                                <name>DwellTimeInMins</name>
+                                <max-size>25</max-size>
+                            </property>
+                            <property>
+                                <name>EventCode</name>
+                                <max-size>12</max-size>
+                            </property>
+                            <property>
+                                <name>EventDateTime</name>
+                            </property>
+                            <property>
+                                <name>HandlingTimeInMins</name>
+                                <max-size>25</max-size>
+                            </property>
+                            <property>
+                                <name>OpRd</name>
+                                <max-size>25</max-size>
+                            </property>
+                            <property>
+                                <name>OpStaCd</name>
+                                <max-size>25</max-size>
+                            </property>
+                            <property>
+                                <name>TrainLinkSeqNbr</name>
+                                <max-size>12</max-size>
+                            </property>
+                            <property>
+                                <name>TrainLocSeqNbr</name>
+                                <max-size>12</max-size>
+                            </property>
+                            <property>
+                                <name>TrainOriginDate</name>
+                                <max-size>12</max-size>
+                            </property>
+                            <property>
+                                <name>TrainSymbol</name>
+                                <max-size>12</max-size>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/Events/Publish/LocationUpdatePubEvent</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties/>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/Events/Location/Update</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>OpRd</name>
+                            </property>
+                            <property>
+                                <name>OpStaCd</name>
+                            </property>
+                            <property>
+                                <name>ClassCd</name>
+                            </property>
+                            <property>
+                                <name>Type</name>
+                            </property>
+                            <property>
+                                <name>EquipmentInitial</name>
+                            </property>
+                            <property>
+                                <name>EquipmentNumber</name>
+                            </property>
+                            <property>
+                                <name>ActivityIndicator</name>
+                            </property>
+                            <property>
+                                <name>TripPlanActivityDateTime</name>
+                            </property>
+                            <property>
+                                <name>ETAChangeInd</name>
+                            </property>
+                            <property>
+                                <name>IsFDOL</name>
+                            </property>
+                            <property>
+                                <name>RoutingKey</name>
+                            </property>
+                            <property>
+                                <name>PlannedEquipmentExtId</name>
+                            </property>
+                            <property>
+                                <name>IsEventLatest</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+                <domain-object>
+                    <mode>memory</mode>
+                    <uri>/Events/Location/LocationMoveEvent</uri>
+                    <backing-store>
+                        <enabled>false</enabled>
+                        <table-name/>
+                        <properties>
+                            <property>
+                                <name>OpRd</name>
+                            </property>
+                            <property>
+                                <name>OpStaCd</name>
+                            </property>
+                            <property>
+                                <name>ClassCd</name>
+                            </property>
+                            <property>
+                                <name>EquipmentInitial</name>
+                            </property>
+                            <property>
+                                <name>EquipmentNumber</name>
+                            </property>
+                            <property>
+                                <name>ActivityIndicator</name>
+                            </property>
+                            <property>
+                                <name>EventDateTime</name>
+                            </property>
+                            <property>
+                                <name>EventCode</name>
+                            </property>
+                            <property>
+                                <name>Type</name>
+                            </property>
+                            <property>
+                                <name>ReprocessInd</name>
+                            </property>
+                            <property>
+                                <name>PlannedEquipmentExtId</name>
+                            </property>
+                            <property>
+                                <name>IsEventLatest</name>
+                            </property>
+                        </properties>
+                    </backing-store>
+                    <indexes>
+                        <index/>
+                    </indexes>
+                </domain-object>
+            </domain-objects>
+        </cache-manager>
+        <db-concepts>
+            <db-uris/>
+            <check-interval>60</check-interval>
+            <inactivity-timeout>0</inactivity-timeout>
+            <initial-size>5</initial-size>
+            <max-size>5</max-size>
+            <min-size>5</min-size>
+            <property-check-interval>900</property-check-interval>
+            <retry-count>-1</retry-count>
+            <wait-timeout>1</wait-timeout>
+        </db-concepts>
+    </object-management>
+    <rulesets>
+        <rules id="all-rules">
+            <uri>/</uri>
+        </rules>
+    </rulesets>
+    <function-groups>
+        <functions id="all-functions">
+            <uri>/</uri>
+        </functions>
+    </function-groups>
+    <destination-groups/>
+    <process-groups/>
+    <log-configs>
+        <log-config id="logConfig">
+            <enabled>true</enabled>
+            <roles>*:trace</roles>
+            <files>
+                <enabled>true</enabled>
+                <dir>C:\code\TIBCO\Run\EquipmentV3</dir>
+                <name/>
+                <max-number>100</max-number>
+                <max-size>5000000</max-size>
+                <append>true</append>
+            </files>
+            <terminal>
+                <enabled>true</enabled>
+                <sys-out-redirect>true</sys-out-redirect>
+                <sys-err-redirect>true</sys-err-redirect>
+                <encoding/>
+            </terminal>
+            <line-layout>
+                <enabled>false</enabled>
+                <class/>
+                <arg/>
+            </line-layout>
+        </log-config>
+    </log-configs>
+    <agent-classes>
+        <inference-agent-class id="location-class">
+            <rules>
+                <uri>/Rules/Location/ProcessLocationMoveEvent</uri>
+                <uri>/Rules/Location/ProcessLocationEvent</uri>
+            </rules>
+            <destinations>
+                <destination id="LocationDestination_52332678">
+                    <pre-processor>/RuleFunctions/Preprocessors/LocationEvent/LocationEventProcessor</pre-processor>
+                    <queue-size>4</queue-size>
+                    <thread-count>4</thread-count>
+                    <threading-model>workers</threading-model>
+                    <uri>/Channels/Location/LocationDestination</uri>
+                </destination>
+                <destination id="LocationMoveDestination_5F39C595">
+                    <pre-processor>/RuleFunctions/Preprocessors/LocationEvent/LocationMoveEventProcessor</pre-processor>
+                    <queue-size>4</queue-size>
+                    <thread-count>4</thread-count>
+                    <threading-model>workers</threading-model>
+                    <uri>/Channels/Location/LocationMoveDestination</uri>
+                </destination>
+            </destinations>
+            <startup>
+                <uri>/RuleFunctions/StartupFunctions/InitializeVariables</uri>
+            </startup>
+            <shutdown/>
+            <local-cache>
+                <eviction>
+                    <max-size>1024</max-size>
+                    <max-time>900</max-time>
+                </eviction>
+            </local-cache>
+            <shared-queue>
+                <size>1024</size>
+                <workers>10</workers>
+            </shared-queue>
+            <load>
+                <max-active/>
+            </load>
+            <concurrent-rtc>true</concurrent-rtc>
+            <check-for-duplicates>false</check-for-duplicates>
+            <businessworks>
+                <uri/>
+            </businessworks>
+            <property-group>
+                <property name="Agent.location-class.enableParallelOps" value="true"/>
+                <property name="Agent.location-class.dbthreadcount" value="4"/>
+                <property name="Agent.location-class.dbOpsQueueSize" value="4"/>
+                <property name="Agent.location-class.threadcount" value="8"/>
+                <property name="Agent.location-class.checkDuplicates" value="false"/>
+                <property name="Agent.location-class.dbOpsBatchSize" value="2"/>
+            </property-group>
+        </inference-agent-class>
+        <cache-agent-class id="cache-class">
+            <property-group>
+                <property name="be.engine.cacheServer.channel.disable" value="true"/>
+                <property name="be.engine.cluster.scheduler" value="false"/>
+            </property-group>
+        </cache-agent-class>
+    </agent-classes>
+    <processing-units>
+        <processing-unit id="cache-bunyip">
+            <agents>
+                <agent>
+                    <ref>cache-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>false</hot-deploy>
+            <cache-storage-enabled>true</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://bunyip.atldc.nscorp.com:40070"/>
+                <property name="be.engine.jmx.connector.port" value="40072"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://bunyip.atldc.nscorp.com:40070;mermaid.atldc.nscorp.com:40070;yeti.atldc.nscorp.com:40070;dingbat.atldc.nscorp.com:40070"/>
+                <property name="be.engine.txn.error.function" value="/SharedLib/RuleFunctions/TranExcepHandler"/>
+            </property-group>
+        </processing-unit>
+        <processing-unit id="cache-dingbat">
+            <agents>
+                <agent>
+                    <ref>cache-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>false</hot-deploy>
+            <cache-storage-enabled>true</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://dingbat.atldc.nscorp.com:40070"/>
+                <property name="be.engine.jmx.connector.port" value="40072"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://dingbat.atldc.nscorp.com:40070;bunyip.atldc.nscorp.com:40070;mermaid.atldc.nscorp.com:40070;yeti.atldc.nscorp.com:40070"/>
+                <property name="be.engine.txn.error.function" value="/SharedLib/RuleFunctions/TranExcepHandler"/>
+            </property-group>
+        </processing-unit>
+        <processing-unit id="cache-mermaid">
+            <agents>
+                <agent>
+                    <ref>cache-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>false</hot-deploy>
+            <cache-storage-enabled>true</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://mermaid.atldc.nscorp.com:40070"/>
+                <property name="be.engine.jmx.connector.port" value="40072"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://mermaid.atldc.nscorp.com:40070;yeti.atldc.nscorp.com:40070;dingbat.atldc.nscorp.com:40070;bunyip.atldc.nscorp.com:40070"/>
+                <property name="be.engine.txn.error.function" value="/SharedLib/RuleFunctions/TranExcepHandler"/>
+            </property-group>
+        </processing-unit>
+        <processing-unit id="cache-yeti">
+            <agents>
+                <agent>
+                    <ref>cache-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>false</hot-deploy>
+            <cache-storage-enabled>true</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://yeti.atldc.nscorp.com:40070"/>
+                <property name="be.engine.jmx.connector.port" value="40072"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://yeti.atldc.nscorp.com:40070;dingbat.atldc.nscorp.com:40070;bunyip.atldc.nscorp.com:40070;mermaid.atldc.nscorp.com:40070"/>
+                <property name="be.engine.txn.error.function" value="/SharedLib/RuleFunctions/TranExcepHandler"/>
+            </property-group>
+        </processing-unit>
+        <processing-unit id="location-bunyip">
+            <agents>
+                <agent>
+                    <ref>location-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>true</hot-deploy>
+            <cache-storage-enabled>false</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://bunyip.atldc.nscorp.com:40073"/>
+                <property name="be.engine.jmx.connector.port" value="40074"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://mermaid.atldc.nscorp.com:40070;yeti.atldc.nscorp.com:40070;dingbat.atldc.nscorp.com:40070;bunyip.atldc.nscorp.com:40070"/>
+                <property name="be.engine.txn.error.function" value="/SharedLib/RuleFunctions/TranExcepHandler"/>
+            </property-group>
+        </processing-unit>
+        <processing-unit id="location-dingbat">
+            <agents>
+                <agent>
+                    <ref>location-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>true</hot-deploy>
+            <cache-storage-enabled>false</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://dingbat.atldc.nscorp.com:40073"/>
+                <property name="be.engine.jmx.connector.port" value="40074"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://mermaid.atldc.nscorp.com:40070;yeti.atldc.nscorp.com:40070;dingbat.atldc.nscorp.com:40070;bunyip.atldc.nscorp.com:40070"/>
+                <property name="be.engine.txn.error.function" value="/SharedLib/RuleFunctions/TranExcepHandler"/>
+            </property-group>
+        </processing-unit>
+        <processing-unit id="location-mermaid">
+            <agents>
+                <agent>
+                    <ref>location-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>true</hot-deploy>
+            <cache-storage-enabled>false</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://mermaid.atldc.nscorp.com:40073"/>
+                <property name="be.engine.jmx.connector.port" value="40074"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://mermaid.atldc.nscorp.com:40070;yeti.atldc.nscorp.com:40070;dingbat.atldc.nscorp.com:40070;bunyip.atldc.nscorp.com:40070"/>
+                <property name="be.engine.txn.error.function" value="/SharedLib/RuleFunctions/TranExcepHandler"/>
+            </property-group>
+        </processing-unit>
+        <processing-unit id="location-yeti">
+            <agents>
+                <agent>
+                    <ref>location-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>true</hot-deploy>
+            <cache-storage-enabled>false</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group>
+                <property name="be.engine.cluster.as.listen.url" value="tcp://yeti.atldc.nscorp.com:40073"/>
+                <property name="be.engine.jmx.connector.port" value="40074"/>
+                <property name="be.engine.jmx.connector.authenticate" value="false"/>
+                <property name="be.engine.cluster.as.discover.url" value="tcp://mermaid.atldc.nscorp.com:40070;yeti.atldc.nscorp.com:40070;dingbat.atldc.nscorp.com:40070;bunyip.atldc.nscorp.com:40070"/>
+                <property name="be.engine.txn.error.function" value="/SharedLib/RuleFunctions/TranExcepHandler"/>
+            </property-group>
+        </processing-unit>
+    </processing-units>
+    <load-balancer-configs>
+        <pair-configs/>
+        <adhoc-configs/>
+    </load-balancer-configs>
+    <property-group>
+        <property-group comment="" name="auth">
+            <property name="be.mm.auth.type" value="file"/>
+            <property name="be.mm.auth.file.location" value="C:/tibco/be/5.1/mm/config/users.pwd"/>
+            <property name="java.security.auth.login.config" value="C:/tibco/be/5.1/mm/config/jaas-config.config"/>
+        </property-group>
+        <property name="com.tibco.tibjms.connect.attempts" value="5,5000"/>
+        <property name="be.engine.txn.error.function" value="/RuleFunctions/UtilityFunctions/TranExcepHandler"/>
+    </property-group>
+</cluster>

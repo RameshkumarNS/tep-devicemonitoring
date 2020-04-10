@@ -1,0 +1,27 @@
+/**
+ * @description 
+ */
+Concepts.GVs rulefunction RuleFunctions.Startup.RefreshAndLoadGVs {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+	}
+	body {
+		String extID = System.getGlobalVariableAsString("Application/ProcessingConstants/GVsExtID", "DeviceMonitoring-GVs");
+		Concepts.GVs	GVs = Instance.getByExtId("DeviceMonitoring-GVs");		
+		System.debugOut("\n" + "---Start of RefreshAndLoadGVs, GVs is: \n" + Instance.serializeUsingDefaults(GVs) + "\n");
+
+		if(	GVs.PublishAlerts != System.getGlobalVariableAsBoolean("Application/Control/PublishAlerts", true)
+			|| GVs.PublishLimits != System.getGlobalVariableAsBoolean("Application/Control/PublishLimits", true)){
+			boolean lockObtained = RuleFunctions.SharedFunctions.Lock(extID);
+			Instance.deleteInstance(GVs);
+			LoadGVs();
+			Cluster.DataGrid.UnLock(extID, true);
+			GVs = Instance.getByExtId(extID);
+			}
+	
+		System.debugOut("\n" + "---End of RefreshAndLoadGVs, GVs is now: \n" + Instance.serializeUsingDefaults(GVs) + "\n");
+		return GVs;
+	}
+}

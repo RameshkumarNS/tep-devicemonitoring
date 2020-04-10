@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<repository xmlns="http://www.tibco.com/xmlns/repo/types/2002">
+    <globalVariables>
+        <globalVariable>
+            <name>LearningSampleSize</name>
+            <value>20</value>
+            <type>Integer</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description/>
+            <constraint/>
+            <modTime>1492532250005</modTime>
+        </globalVariable>
+        <globalVariable>
+            <name>GVsExtID</name>
+            <value>DeviceMonitoring-GVs</value>
+            <type>String</type>
+            <deploymentSettable>false</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description/>
+            <constraint/>
+            <modTime>1493313614641</modTime>
+        </globalVariable>
+    </globalVariables>
+</repository>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<event:SimpleEvent xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:event="http:///com/tibco/cep/designtime/core/model/event" namespace="/Events/OutgoingEvents/" folder="/Events/OutgoingEvents/" name="Devic" description="" GUID="2CCEE693-7994-AED4-B3F5-1E9C214A8CD2" ownerProjectName="DeviceMonitor" superEventPath="" payloadString="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&#xA;&lt;payload ref=&quot;pfx:SensorTelemetryLimits&quot;/>" ttlUnits="Seconds" channelURI="/Channels/DevicePublishingChannel" destinationName="DeviceLimitNotification">
+  <namespaceEntries prefix="xsd" namespace="http://www.w3.org/2001/XMLSchema"/>
+  <namespaceEntries prefix="pfx" namespace="http://www.nscorp.com/sensor/telemetrylimits/v1.0"/>
+  <registryImportEntries location="SharedResources\Schemas\SensorTelemetryLimitsV1.0.xsd" namespace="http://www.nscorp.com/sensor/telemetrylimits/v1.0"/>
+  <expiryAction folder="/Events/OutgoingEvents/DeviceLimitSetNotification" name="DeviceLimitSetNotification_expiryAction" ownerProjectName="DeviceMonitor" actionText="" conditionText="">
+    <symbols>
+      <symbolList idName="devicelimitsetnotification" type="/Events/OutgoingEvents/Devic"/>
+    </symbols>
+  </expiryAction>
+</event:SimpleEvent>

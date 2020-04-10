@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="www.tibco.com/be/ontology/SharedLib/Scorecards/StatusMessages" xmlns:ns0="www.tibco.com/be/ontology/_BaseConcept" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="www.tibco.com/be/ontology/SharedLib/Scorecards/StatusMessages" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+    <xs:import namespace="www.tibco.com/be/ontology/_BaseConcept"/>
+    <xs:complexType name="StatusMessages" block="extension">
+        <xs:complexContent>
+            <xs:extension base="ns0:_BaseConcept">
+                <xs:sequence>
+                    <xs:element name="EventReceived" type="xs:string" minOccurs="0"/>
+                    <xs:element name="MissingEquipmentInitOrNbr" type="xs:string" minOccurs="0"/>
+                    <xs:element name="MissingEventDateTime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="MissingScannerId" type="xs:string" minOccurs="0"/>
+                    <xs:element name="EventNotLatest" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Complete" type="xs:string" minOccurs="0"/>
+                    <xs:element name="MissingEventCode" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="StatusMessages" type="tns:StatusMessages"/>
+</xs:schema>

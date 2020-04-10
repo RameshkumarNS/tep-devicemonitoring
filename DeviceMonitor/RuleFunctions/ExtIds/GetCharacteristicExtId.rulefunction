@@ -1,0 +1,16 @@
+/**
+ * @description 
+ */
+String rulefunction RuleFunctions.ExtIds.GetCharacteristicExtId {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+		String sensorId;
+		String characteristicName;
+		
+	}
+	body {
+		return String.format("CHA-%s-%s", sensorId, characteristicName);	
+	}
+}

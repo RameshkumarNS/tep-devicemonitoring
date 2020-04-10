@@ -1,0 +1,40 @@
+/**
+ * @description 
+ * @author GAATLITEARD864L
+ * 	when a new device reading data element is received, remove the oldest data element and insert the new one
+ */
+ 
+rule Rules.End.RTCEnd {
+	attribute {
+		priority = 10;
+		forwardChain = true;
+	}
+	declare {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+		Concepts.sensorReading sensorReading;
+		Concepts.GVs	GVs;
+	}
+	when {
+		sensorReading.operationMode == GVs.MonitoringTag;
+		sensorReading@extId == sensorReadingEvent.DeviceReading_extId;
+	}
+	then {
+		String	functionName = "Rules.Init.Stateful.RTCEnd";
+		Events.OutgoingEvents.ForTesting.ReadingEventRTCEndReport evt = null; 
+		String	Str = "The following WER Rule(s) have fired: [" + sensorReadingEvent.WERRulesFired + "]";
+		double[] values = Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+		Str += "\n, the device readings are: [";
+		for(int i=0; i<sensorReading.readingValues@length ; i++){
+			Str += " " + sensorReading.readingValues[i];
+		}
+		Str += "]";
+		
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		
+		evt = Event.createEvent("");
+		if(Event.sendEvent(evt)==null)
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , Str + ", Device: " + sensorReading@extId, null);
+		else
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "ERROR SENDING RTC END REPORT NOTIFICATION" + ", Device: " + sensorReading@extId, null);
+	}
+}

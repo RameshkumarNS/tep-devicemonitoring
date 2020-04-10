@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://www.nscorp.com/sensor/sensoralert/v1.0" targetNamespace="http://www.nscorp.com/sensor/sensoralert/v1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="SensorTelemetryAlert" type="ns:SensorTelemetryAlertType"/>
+	<xs:complexType name="SensorTelemetryAlertType">
+		<xs:sequence>
+			<xs:element name="SchemaVersion" type="xs:string" fixed="1.0" minOccurs="0"/>
+			<xs:element name="SensorInformation" type="ns:SensorInformationType"/>
+			<xs:element name="TriggeringEventInformation" type="ns:TriggeringEventInformationType"/>
+			<xs:element name="Alert" type="ns:AlertType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SensorInformationType">
+		<xs:sequence>
+			<xs:annotation>
+				<xs:documentation xml:lang="en">
+				The Sensor Type is the family of sensors.  For example, all PTC sensors follow a single event schema and their family type is "PTCSensor"
+
+				The makeup of the key will differ according to the source system of the sensor events.  The keys are defined as follows:
+				PTC Sensors:  Sensor Type - Logical Location (SMID) - Sensor Id - Attribute Name (ex. PTCRADIO-ns:w69916101r-3940003-ReflectedPwr)
+				</xs:documentation>
+			</xs:annotation>
+			<xs:element name="SensorType" type="xs:string"/>
+			<xs:element name="Key" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TriggeringEventInformationType">
+		<xs:sequence>
+			<xs:element name="Latitude" type="xs:double" minOccurs="0"/>
+			<xs:element name="Longitude" type="xs:double" minOccurs="0"/>
+			<xs:element name="GPSTimestamp" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="GPSTimeZone" type="xs:string" minOccurs="0"/>
+			<xs:element name="EventTimestamp" type="xs:dateTime"/>
+			<xs:element name="EventTimeZone" type="xs:string" minOccurs="0"/>
+			<xs:element name="Value" type="xs:double"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AlertType">
+		<xs:sequence>
+			<xs:element name="AlertTimestamp" type="xs:dateTime"/>
+			<xs:element name="AlertMessage" type="xs:string"/>
+			<xs:element name="AboveBelowMean">
+				<xs:annotation>
+					<xs:documentation>
+						This element indicates if the rule violation was for readings above the mean, below the mean or if it was not applicable.  Some rules measure if a certain number of readings were above or below the mean and some are not related to the readings above or below.  There are times that this information is important.  For example, temperature readings below the mean may not matter as to high of temperatures are what causes problems.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Above"/>
+						<xs:enumeration value="Below"/>
+						<xs:enumeration value="N/A"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Trend">
+				<xs:annotation>
+					<xs:documentation>
+						This element indicates if the rule violation was for readings that are trending up, down or if it was not applicable.  There are times that this information is important.  For example, temperature readings trending down may not matter as much as temperatures readings that are trending up.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Up"/>
+						<xs:enumeration value="Down"/>
+						<xs:enumeration value="N/A"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

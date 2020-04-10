@@ -1,0 +1,3 @@
+1493138697265	Delete resource 'DeviceMonitor/Deployments/Train-QA.cdd'
+1493241461021	Delete resource 'DeviceMonitor/RuleFunctions/Utility/PublishEvent.rulefunction'
+1493241480046	Delete resource 'DeviceMonitor/Events/OutgoingEvents/OutBaseEvent.event'

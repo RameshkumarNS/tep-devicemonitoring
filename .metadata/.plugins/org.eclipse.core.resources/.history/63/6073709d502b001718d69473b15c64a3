@@ -1,0 +1,100 @@
+/**
+ * @description 
+ * ------- Rule 2: Two of the three most recent points plot outside and on the same side as one of the 2-sigma control limits
+ * @author GAATLITEARD864L
+ */
+rule Rules.Monitoring.WesternElectric.WER4 {
+	attribute {
+		priority = 5;
+		forwardChain = true;
+	}
+	declare {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+		Concepts.sensorReading sensorReading;
+		Concepts.GVs	GVs;
+	}
+	when {
+		sensorReading.operationMode == GVs.MonitoringTag;
+		sensorReading@extId == sensorReadingEvent.DeviceReading_extId;
+		sensorReading.StatsMethodName == "SD";// bases for making it configurable per device
+		Instance.isModified(sensorReading);
+		sensorReading.readingValues@length >= 8;
+	}
+	then {
+		//Setup logging
+		String functionName = "Rules.Monitoring.WesternElectric.WER4";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "Rule started, Device: " + sensorReading@extId, null);
+		Events.OutgoingEvents.DeviceAlertEvent	deviceAlertEvent=null;
+		
+		DateTime startDateTime = DateTime.now();
+		long startTimeMs = DateTime.getTimeInMillis(startDateTime);
+		
+		try{
+			//****************************************************
+			double	mean =  sensorReading.meanValue;
+			double	variance = sensorReading.variance;
+			double	sd = sensorReading.stdDevValue;
+			int legth = sensorReading.readingValues@length;
+			//****************************************************
+			
+			//---------- Rule 4: Eight out of the last eight points plot on the same side of the median line, or target value 
+			boolean isRule4 = false;
+			int eightOfEightUp = 0;
+			int eightOfEightDown = 0;
+			int len = sensorReading.readingValues@length;
+			double[] values =  Instance.PropertyArray.toArrayDouble(sensorReading.readingValues);
+			int i=len-1;
+			for(; i>=len-8; i--){
+				if(values[i] > mean)
+					eightOfEightUp++;				
+				else
+					break;
+			}
+			if(eightOfEightUp == 8)
+				isRule4 = true;
+			else{
+				for(i=len-1; i>=len-8; i--){	
+					if(values[i] < mean)
+						eightOfEightDown++;				
+					else
+						break;
+				}
+				if(eightOfEightDown == 8)
+					isRule4 = true;		
+			}
+			//--------------------------------
+			String WERLogIndicator;
+			if(isRule4){
+				sensorReadingEvent.WERRulesFired += " WER4 ";
+				WERLogIndicator= " WER4 has been triggered and the Mean value =[" + mean + "]" ;
+				String	alertMessage=System.getGlobalVariableAsString("Application/ProcessingConstants/AlertParameters/AlertMessageWER4", "Western Eelectric Rule #4 has triggered"); 
+				String	trend = GVs.AlertNA;// System.getGlobalVariableAsString("Application/ProcessingConstants/AlertParameters/AlertNA", "N/A");
+				String	aboveOrBelowMean;
+				
+				if(eightOfEightUp ==8)
+					aboveOrBelowMean = GVs.AlertAbove; // System.getGlobalVariableAsString("Application/ProcessingConstants/AlertParameters/AlertAbove", "Above");
+				else
+					aboveOrBelowMean = GVs.AlertBelow; // System.getGlobalVariableAsString("Application/ProcessingConstants/AlertParameters/AlertBelow", "Below");
+		
+				if(GVs.PublishAlerts){
+					deviceAlertEvent = Event.createEvent("xslt://{{/Events/OutgoingEvents/DeviceAlertEvent}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:ns1=\"http://www.nscorp.com/sensor/sensoralert/v1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:ns=\"http://www.nscorp.com/sensor/telemetryevent/v1.0\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" version=\"1.0\" exclude-result-prefixes=\"ns1 xsl ns xsd\">\n    <xsl:output method=\"xml\"/>\n    <xsl:param name=\"sensorReadingEvent\"/>\n    <xsl:param name=\"startDateTime\"/>\n    <xsl:param name=\"alertMessage\"/>\n    <xsl:param name=\"aboveOrBelowMean\"/>\n    <xsl:param name=\"trend\"/>\n    <xsl:template match=\"/\">\n        <createEvent>\n            <event>\n                <payload>\n                    <ns1:SensorTelemetryAlert>\n                        <ns1:SensorInformation>\n                            <ns1:SensorType>\n                                <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:SensorType\"/>\n                            </ns1:SensorType>\n                            <ns1:Key>\n                                <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:SensorInformation/ns:Key\"/>\n                            </ns1:Key>\n                        </ns1:SensorInformation>\n                        <ns1:TriggeringEventInformation>\n                            <xsl:if test=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:Latitude\">\n                                <ns1:Latitude>\n                                    <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:Latitude\"/>\n                                </ns1:Latitude>\n                            </xsl:if>\n                            <xsl:if test=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:Longitude\">\n                                <ns1:Longitude>\n                                    <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:Longitude\"/>\n                                </ns1:Longitude>\n                            </xsl:if>\n                            <xsl:if test=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:GPSTimestamp\">\n                                <ns1:GPSTimestamp>\n                                    <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:GPSTimestamp\"/>\n                                </ns1:GPSTimestamp>\n                            </xsl:if>\n                            <ns1:EventTimestamp>\n                                <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:EventTimestamp\"/>\n                            </ns1:EventTimestamp>\n                            <ns1:Value>\n                                <xsl:value-of select=\"$sensorReadingEvent/payload/ns:SensorEvent/ns:EventInformation/ns:Value\"/>\n                            </ns1:Value>\n                        </ns1:TriggeringEventInformation>\n                        <ns1:Alert>\n                            <ns1:AlertTimestamp>\n                                <xsl:value-of select=\"$startDateTime\"/>\n                            </ns1:AlertTimestamp>\n                            <ns1:AlertMessage>\n                                <xsl:value-of select=\"$alertMessage\"/>\n                            </ns1:AlertMessage>\n                            <ns1:AboveBelowMean>\n                                <xsl:value-of select=\"$aboveOrBelowMean\"/>\n                            </ns1:AboveBelowMean>\n                            <ns1:Trend>\n                                <xsl:value-of select=\"$trend\"/>\n                            </ns1:Trend>\n                        </ns1:Alert>\n                    </ns1:SensorTelemetryAlert>\n                </payload>\n            </event>\n        </createEvent>\n    </xsl:template>\n</xsl:stylesheet>");
+					if(Event.sendEvent(deviceAlertEvent)==null)
+						SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , sensorReading@extId + WERLogIndicator + ", --> ERROR Sending the Device Alert Event: " + deviceAlertEvent@payload, null);
+				}
+				SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , sensorReading@extId + ", " + WERLogIndicator + ", eventPaylod: " + deviceAlertEvent@payload, null);
+			}
+			//--------------------------------
+			long end = DateTime.getTimeInMillis(DateTime.now());
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , sensorReading@extId + " Executed rule in: " + (end-startTimeMs) + "milliseconds", null);
+		}catch(Exception e){
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelError,functionName  , "Exception while processing rule for Device: " + sensorReading@extId + ":" +  e@message, e@stackTrace);
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelWarning,functionName  , "Incoming payload: "+sensorReadingEvent@payload , null);
+			if(deviceAlertEvent !=null)
+				SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelWarning,functionName  , "Outgoing payload: "+ deviceAlertEvent@payload , null);
+			Event.consumeEvent(sensorReadingEvent);
+ 			Engine.Rtc.abortRTC();
+		}
+		
+	}
+}

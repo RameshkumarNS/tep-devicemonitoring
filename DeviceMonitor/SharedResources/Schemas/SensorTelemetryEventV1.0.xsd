@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://www.nscorp.com/sensor/telemetryevent/v1.0" targetNamespace="http://www.nscorp.com/sensor/telemetryevent/v1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="SensorEvent" type="ns:SensorEventType"/>
+	<xs:complexType name="SensorEventType">
+		<xs:sequence>
+			<xs:element name="SchemaVersion" type="xs:string" fixed="1.0" minOccurs="0"/>
+			<xs:element name="SensorInformation" type="ns:SensorInformationType"/>
+			<xs:element name="EventInformation" type="ns:EventInformationType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SensorInformationType">
+		<xs:sequence>
+			<xs:annotation>
+				<xs:documentation xml:lang="en">
+				The Sensor Type is the family of sensors.  For example, all PTC sensors follow a single event schema and their family type is "PTCSensor"
+
+				The makeup of the key will differ according to the source system of the sensor events.  The keys are defined as follows:
+				PTC Sensors:  Sensor Type - Logical Location (SMID) - Sensor Id - Attribute Name (ex. PTCRADIO-ns:w69916101r-3940003-ReflectedPwr)
+				</xs:documentation>
+			</xs:annotation>
+			<xs:element name="SensorType" type="xs:string"/>
+			<xs:element name="Key" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EventInformationType">
+		<xs:sequence>
+			<xs:element name="Latitude" type="xs:double" minOccurs="0"/>
+			<xs:element name="Longitude" type="xs:double" minOccurs="0"/>
+			<xs:element name="GPSTimestamp" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="EventTimestamp" type="xs:dateTime"/>
+			<xs:element name="EventTimeZone" type="xs:string" minOccurs="0"/>
+			<xs:element name="Value" type="xs:double"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

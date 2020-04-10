@@ -1,0 +1,16 @@
+/**
+ * @description 
+ */
+String rulefunction RuleFunctions.ExtIds.GetCharacteristicValueExtId {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+		String sensorId;
+		String characteristicName;
+		long creationMillis;
+	}
+	body {
+		return String.format("CHV-%s-%s-%s", sensorId, characteristicName, creationMillis);	
+	}
+}

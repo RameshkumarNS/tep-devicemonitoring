@@ -1,0 +1,34 @@
+/**
+ * @description 
+ */
+boolean	rulefunction RuleFunctions.SharedFunctions.Lock {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+		
+		String extId;
+	}
+	body {
+		String functionName = "RuleFunctions.SharedFunctions.Lock";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "Rulefunction started: " + extId, null);
+		
+		boolean lockObtained = false;
+		int counter = 1;
+		int maxLockAttempts = System.getGlobalVariableAsInt("Application/Lock/MaxLockAttempts", 3);
+		long lockTimeout = System.getGlobalVariableAsInt("Application/Lock/LockTimeout", 2000);
+		//Try locking the extid for configurable(GV: MaxLockAttempts, default is 3, -1 indicates indefinite) numberof times
+		//LockTimeOut is the time to wait between each attempt
+		for(int i=0; (i<maxLockAttempts || i== -1); i++){
+			lockObtained = Cluster.DataGrid.Lock(extId,lockTimeout,false);	
+			if(lockObtained){
+				break;	
+			}
+			if (i == maxLockAttempts-1 && !lockObtained){
+				SharedLib.RuleFunctions.Logger(logVariables.LogLevel, logVariables.LogLevelInfo, "RuleFunctions.SharedFunctions.Lock", "Could not obtain lock for extId: " + extId + ".", null);
+			}
+		}
+		return lockObtained;
+	}
+}

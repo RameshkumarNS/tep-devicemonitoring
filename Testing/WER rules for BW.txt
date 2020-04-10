@@ -1,0 +1,325 @@
+(  (abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/threeSigma) - $deviceInformation/group/Parameters/mean)
+or
+(abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_threeSigma - $deviceInformation/group/Parameters/mean))
+) 
+ !=(contains(tib:trim($JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired), "WER1")   
+)
+B6 : $deviceInformation/group/dataset/point15
+C6 : $deviceInformation/group/dataset/point14
+D6 : $deviceInformation/group/dataset/point13
+
+E6 : $deviceInformation/group/dataset/point12
+F6 : $deviceInformation/group/dataset/point11
+G6 : $deviceInformation/group/dataset/point10
+H6 : $deviceInformation/group/dataset/point9
+I6 : $deviceInformation/group/dataset/point8
+J6 : $deviceInformation/group/dataset/point7
+K6 : $deviceInformation/group/dataset/point6
+L6 : $deviceInformation/group/dataset/point5
+M6 : $deviceInformation/group/dataset/point4
+N6 : $deviceInformation/group/dataset/point3
+O6 : $deviceInformation/group/dataset/point2
+P6 : $deviceInformation/group/dataset/point1
+
+B7 : 3 SIGMA	:	$deviceInformation/group/Parameters/threeSigma
+B8 : 2 SIGMA	:	$deviceInformation/group/Parameters/twoSigma
+B9 : 1 SIGMA	:	$deviceInformation/group/Parameters/oneSigma
+B10 : MEAN		:	$deviceInformation/group/Parameters/mean
+B11 : -1 SIGMA	:	$deviceInformation/group/Parameters/neg_oneSigma
+B12 : -2 SIGMA	:	$deviceInformation/group/Parameters/neg_twoSigma
+B13 : -3 SIGMA	: 	$deviceInformation/group/Parameters/neg_threeSigma
+
+==================================
+WER1: Most recent point outside one of the 3-SIGMA
+==================================
+(  (abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/threeSigma) - $deviceInformation/group/Parameters/mean)
+or
+(abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_threeSigma - $deviceInformation/group/Parameters/mean))
+) 
+ !=(contains(tib:trim($JMS-Queue-Receiver/ns:ActivityOutput/OtherProperties/WERRulesFired), "WER1"))
+
+==================================
+WER2: latest 2 of 3 plots outside and ON the same side as one of the 2-sigma controls
+==================================
+( 
+(
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/twoSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean)
+)
+)
+)
+==================================
+WER3: latest 4 of 5 plots outside and ON the same side as one of the 1-sigma controls
+==================================
+latest 5:  $deviceInformation/group/dataset/point15,$deviceInformation/group/dataset/point14,$deviceInformation/group/dataset/point13,$deviceInformation/group/dataset/point12,$deviceInformation/group/dataset/point11
+
+(
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/mean) or 
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/mean) or 
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/mean) or 
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/mean)
+)
+),or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point11 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/mean)
+)
+) or 
+(
+abs($deviceInformation/group/dataset/point12 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point13 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point14 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean) and 
+(
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/mean) or
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean and $deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/mean)
+)
+)
+)
+==================================
+WER4: 8 POINTS ON 1 SIDE OF THE MEAN
+==================================
+=(
+(
+$deviceInformation/group/dataset/point8 > $deviceInformation/group/Parameters/mean and  
+$deviceInformation/group/dataset/point9 > $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point10 > $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/mean
+)
+ or
+(
+$deviceInformation/group/dataset/point8 < $deviceInformation/group/Parameters/mean and  
+$deviceInformation/group/dataset/point9 < $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point10 < $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/mean and 
+$deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/mean
+)
+)
+==================================
+WER5: 6 PONITS INCREASING OR DECREASING
+==================================
+(
+( 
+$deviceInformation/group/dataset/point10 < $deviceInformation/group/dataset/point11 and 
+$deviceInformation/group/dataset/point11 < $deviceInformation/group/dataset/point12 and 
+$deviceInformation/group/dataset/point12 < $deviceInformation/group/dataset/point13 and 
+$deviceInformation/group/dataset/point13 < $deviceInformation/group/dataset/point14 and 
+$deviceInformation/group/dataset/point14 < $deviceInformation/group/dataset/point15
+) or (
+$deviceInformation/group/dataset/point10 > $deviceInformation/group/dataset/point11 and 
+$deviceInformation/group/dataset/point11 > $deviceInformation/group/dataset/point12 and 
+$deviceInformation/group/dataset/point12 > $deviceInformation/group/dataset/point13 and 
+$deviceInformation/group/dataset/point13 > $deviceInformation/group/dataset/point14 and 
+$deviceInformation/group/dataset/point14 > $deviceInformation/group/dataset/point15 
+)
+)
+
+
+==================================
+WER6: 15 POINTS WITHIN 1 SIGMA
+==================================
+=AND($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point10 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point10 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point9 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point9 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point8 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point8 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point7 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point7 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point6 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point6 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point5 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point5 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point4 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point4 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point3 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point3 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point2 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point2 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point1 < $deviceInformation/group/Parameters/oneSigma , $deviceInformation/group/dataset/point1 > $deviceInformation/group/Parameters/neg_oneSigma)
+
+=($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point10 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point10 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point9 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point9 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point8 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point8 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point7 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point7 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point6 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point6 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point5 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point5 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point4 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point4 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point3 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point3 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point2 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point2 > $deviceInformation/group/Parameters/neg_oneSigma,$deviceInformation/group/dataset/point1 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point1 > $deviceInformation/group/Parameters/neg_oneSigma)
+
+-- IT IS SAME AS:
+
+(
+($deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point10 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point10 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point9 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point9 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point8 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point8 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point7 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point7 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point6 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point6 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point5 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point5 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point4 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point4 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point3 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point3 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point2 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point2 > $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point1 < $deviceInformation/group/Parameters/oneSigma and $deviceInformation/group/dataset/point1 > $deviceInformation/group/Parameters/neg_oneSigma)
+)
+
+==================================
+
+WER7: 14 PONITS ALTERNATING
+==================================
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/neg_oneSigma - $deviceInformation/group/Parameters/mean)
+abs($deviceInformation/group/dataset/point15 - $deviceInformation/group/Parameters/mean) > abs($deviceInformation/group/Parameters/oneSigma - $deviceInformation/group/Parameters/mean)
+
+=(
+((
+$deviceInformation/group/dataset/point15 > $deviceInformation/group/dataset/point14  and 
+$deviceInformation/group/dataset/point14 < $deviceInformation/group/dataset/point13  and 
+$deviceInformation/group/dataset/point13 > $deviceInformation/group/dataset/point12  and 
+$deviceInformation/group/dataset/point12 < $deviceInformation/group/dataset/point11  and 
+$deviceInformation/group/dataset/point11 > $deviceInformation/group/dataset/point10  and 
+$deviceInformation/group/dataset/point10 < $deviceInformation/group/dataset/point9  and 
+$deviceInformation/group/dataset/point9 > $deviceInformation/group/dataset/point8  and 
+$deviceInformation/group/dataset/point8 < $deviceInformation/group/dataset/point7  and 
+$deviceInformation/group/dataset/point7 > $deviceInformation/group/dataset/point6  and 
+$deviceInformation/group/dataset/point6 < $deviceInformation/group/dataset/point5  and 
+$deviceInformation/group/dataset/point5 > $deviceInformation/group/dataset/point4  and 
+$deviceInformation/group/dataset/point4 < $deviceInformation/group/dataset/point3  and 
+$deviceInformation/group/dataset/point3 > $deviceInformation/group/dataset/point2
+))
+ or (( 
+$deviceInformation/group/dataset/point15 < $deviceInformation/group/dataset/point14  and 
+$deviceInformation/group/dataset/point14 > $deviceInformation/group/dataset/point13  and 
+$deviceInformation/group/dataset/point13 < $deviceInformation/group/dataset/point12  and 
+$deviceInformation/group/dataset/point12 > $deviceInformation/group/dataset/point11  and 
+$deviceInformation/group/dataset/point11 < $deviceInformation/group/dataset/point10  and 
+$deviceInformation/group/dataset/point10 > $deviceInformation/group/dataset/point9  and 
+$deviceInformation/group/dataset/point9 < $deviceInformation/group/dataset/point8  and 
+$deviceInformation/group/dataset/point8 > $deviceInformation/group/dataset/point7  and 
+$deviceInformation/group/dataset/point7 < $deviceInformation/group/dataset/point6  and 
+$deviceInformation/group/dataset/point6 > $deviceInformation/group/dataset/point5  and 
+$deviceInformation/group/dataset/point5 < $deviceInformation/group/dataset/point4  and 
+$deviceInformation/group/dataset/point4 > $deviceInformation/group/dataset/point3  and 
+$deviceInformation/group/dataset/point3 < $deviceInformation/group/dataset/point2
+))
+)
+===========
+WER8: 8 POINTS OUTSIDE 1 SIGMA
+===========
+(
+($deviceInformation/group/dataset/point8 > $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point8 < $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point9 > $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point9 < $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point10 > $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point10 < $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point11 > $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point11 < $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point12 > $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point12 < $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point13 > $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point13 < $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point14 > $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point14 < $deviceInformation/group/Parameters/neg_oneSigma) and 
+($deviceInformation/group/dataset/point15 > $deviceInformation/group/Parameters/oneSigma or $deviceInformation/group/dataset/point15 < $deviceInformation/group/Parameters/neg_oneSigma)
+)

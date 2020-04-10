@@ -1,0 +1,53 @@
+/**
+ * @description 
+ * @author GAATLITEARD864L
+ * 	when a new device reading data element is received, remove the oldest data element and insert the new one
+ */
+ 
+rule Rules.Init.Stateful.AddNewReadingMaintainSampleSize {
+	attribute {
+		priority = 5;
+		forwardChain = true;
+	}
+	declare {
+		Events.IncomingEvents.DeviceReading sensorReadingEvent;
+		Concepts.sensorReading sensorReading;
+		Concepts.GVs	GVs;
+	}
+	when {
+		sensorReading.operationMode == GVs.MonitoringTag;
+		sensorReading@extId == sensorReadingEvent.DeviceReading_extId;
+		!Instance.isModified(sensorReading);
+		sensorReading.readingValues@length <= GVs.LearningSampleSize;// the operatorn <= is only for testing purposes, it should be ==
+	}
+	then {
+		//Setup logging
+		String functionName = "Rules.Init.Stateful.AddNewReadingMaintainSampleSize";
+		SharedLib.Concepts.LogVariables logVariables = SharedLib.RuleFunctions.GetLogVariableInstance();
+		SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , "Rule started, Device: " + sensorReading@extId, null);
+		
+		DateTime startDateTime = DateTime.now();
+		long startTimeMs = DateTime.getTimeInMillis(startDateTime);
+		
+		try{
+			double newreading = XPath.evalAsDouble("xpath://<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xpath>\n    <expr>$sensorReadingEvent/payload/xsd2:SensorEvent/xsd2:EventInformation/xsd2:Value</expr>\n    <namespaces>\n        <namespace URI=\"http://www.w3.org/1999/XSL/Transform\" pfx=\"xsl\"/>\n        <namespace URI=\"http://www.nscorp.com/sensor/telemetryevent/v1.0\" pfx=\"xsd2\"/>\n        <namespace URI=\"http://www.w3.org/2001/XMLSchema\" pfx=\"xsd\"/>\n    </namespaces>\n    <variables>\n        <variable>sensorReadingEvent</variable>\n    </variables>\n</xpath>");
+			// remove the oldest data element and insert the new one 
+if (sensorReading.readingValues@length < GVs.LearningSampleSize){
+			sensorReading.readingValues[sensorReading.readingValues@length] = newreading;
+}else{
+			Instance.PropertyArray.delete(sensorReading.readingValues, 0);	
+			sensorReading.readingValues[sensorReading.readingValues@length] = newreading;
+}
+			String str = " device reading is now-->: \n" + Instance.serializeUsingDefaults(sensorReading);
+			long end = DateTime.getTimeInMillis(DateTime.now());
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , sensorReading@extId + str, null);
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelInfo,functionName  , sensorReading@extId + " Executed rule in: " + (end-startTimeMs) + "milliseconds", null);
+		}catch(Exception e){
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelError,functionName  , "Exception while processing rule for evice : " + sensorReadingEvent.DeviceReading_extId + ":" +  e@message, e@stackTrace);
+			SharedLib.RuleFunctions.Logger(logVariables.LogLevel,logVariables.LogLevelWarning,functionName  , "Incoming payload: "+sensorReadingEvent@payload , null);
+			Event.consumeEvent(sensorReadingEvent);
+ 			Engine.Rtc.abortRTC();
+		}
+		
+	}
+}

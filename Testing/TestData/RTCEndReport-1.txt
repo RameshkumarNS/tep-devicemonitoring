@@ -1,0 +1,99 @@
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.627-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>3</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.596-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[]
+,	the	device	readings	(last	is	last)	are:	[	1.5	4.0	2.0	2.7	4.2	1.8	3.25	2.5	3.9	1.9	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1	1.9	3.9	2.5	3.25	1.8	4.2	2.7	2.0	4.0	1.5]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	1	Milli	Seconds,	start:[1493071743595,	End:[1493071743596]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.659-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>4</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.643-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[]
+,	the	device	readings	(last	is	last)	are:	[	4.0	2.0	2.7	4.2	1.8	3.25	2.5	3.9	1.9	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1	1.9	3.9	2.5	3.25	1.8	4.2	2.7	2.0	4.0]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	31	Milli	Seconds,	start:[1493071743612,	End:[1493071743643]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.69-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>5</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.659-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[]
+,	the	device	readings	(last	is	last)	are:	[	2.0	2.7	4.2	1.8	3.25	2.5	3.9	1.9	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1	1.9	3.9	2.5	3.25	1.8	4.2	2.7	2.0]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	16	Milli	Seconds,	start:[1493071743643,	End:[1493071743659]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.737-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>-2</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.69-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER1	]
+,	the	device	readings	(last	is	last)	are:	[2.7	4.2	1.8	3.25	2.5	3.9	1.9	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1	1.9	3.9	2.5	3.25	1.8	4.2	2.7]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	31	Milli	Seconds,	start:[1493071743659,	End:[1493071743690]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.768-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>-1.7</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.721-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER2		WER1	]
+,	the	device	readings	(last	is	last)	are:	[	4.2	1.8	3.25	2.5	3.9	1.9	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0	-1.7]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	-1.7	-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1	1.9	3.9	2.5	3.25	1.8	4.2]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	16	Milli	Seconds,	start:[1493071743705,	End:[1493071743721]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.784-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>-1.7</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.752-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER2		WER1	]
+,	the	device	readings	(last	is	last)	are:	[	1.8	3.25	2.5	3.9	1.9	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0	-1.7	-1.7]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	-1.7	-1.7	-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1	1.9	3.9	2.5	3.25	1.8]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	31	Milli	Seconds,	start:[1493071743721,	End:[1493071743752]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.83-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>1.3</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.784-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER3		WER2	]
+,	the	device	readings	(last	is	last)	are:	[	3.25	2.5	3.9	1.9	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0	-1.7	-1.7	1.3]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	1.3	-1.7	-1.7	-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1	1.9	3.9	2.5	3.25]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	16	Milli	Seconds,	start:[1493071743768,	End:[1493071743784]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.83-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>1.2</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.799-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER3	]
+,	the	device	readings	(last	is	last)	are:	[	2.5	3.9	1.9	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0	-1.7	-1.7	1.3	1.2]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	1.2	1.3	-1.7	-1.7	-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1	1.9	3.9	2.5]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	15	Milli	Seconds,	start:[1493071743784,	End:[1493071743799]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.865-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>1.1</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.83-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER3		WER8	]
+,	the	device	readings	(last	is	last)	are:	[	3.9	1.9	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0	-1.7	-1.7	1.3	1.2	1.1]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	1.1	1.2	1.3	-1.7	-1.7	-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1	1.9	3.9]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	15	Milli	Seconds,	start:[1493071743815,	End:[1493071743830]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.895-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>1</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.846-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER3		WER8	]
+,	the	device	readings	(last	is	last)	are:	[	1.9	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0	-1.7	-1.7	1.3	1.2	1.1	1.0]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	1.0	1.1	1.2	1.3	-1.7	-1.7	-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1	1.9]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	0	Milli	Seconds,	start:[1493071743846,	End:[1493071743846]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.907-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>0.9</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.886-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER3		WER4		WER8	]
+,	the	device	readings	(last	is	last)	are:	[	4.1	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0	-1.7	-1.7	1.3	1.2	1.1	1.0	0.9]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	0.9	1.0	1.1	1.2	1.3	-1.7	-1.7	-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0	4.1]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	10	Milli	Seconds,	start:[1493071743876,	End:[1493071743886]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.938-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>0.8</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.907-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER3		WER5		WER4		WER2		WER8	]
+,	the	device	readings	(last	is	last)	are:	[	2.0	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0	-1.7	-1.7	1.3	1.2	1.1	1.0	0.9	0.8]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	0.8	0.9	1.0	1.1	1.2	1.3	-1.7	-1.7	-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5	2.0]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	0	Milli	Seconds,	start:[1493071743907,	End:[1493071743907]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:03.969-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>0.7</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.938-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER3		WER5		WER4		WER2		WER8	]
+,	the	device	readings	(last	is	last)	are:	[	3.5	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0	-1.7	-1.7	1.3	1.2	1.1	1.0	0.9	0.8	0.7]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	0.7	0.8	0.9	1.0	1.1	1.2	1.3	-1.7	-1.7	-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5	3.5]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	16	Milli	Seconds,	start:[1493071743922,	End:[1493071743938]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>2017-04-24T18:09:04-04:00<?xml	version="1.0"	encoding="UTF-8"?>
+<ns0:SensorTelemetryAlert	xmlns:ns0="http://www.nscorp.com/sensor/sensoralert/v1.0"><ns0:SensorInformation><ns0:SensorType>Battery</ns0:SensorType><ns0:Key>Test-0001</ns0:Key></ns0:SensorInformation><ns0:TriggeringEventInformation><ns0:Latitude>3.14159265358979</ns0:Latitude><ns0:Longitude>3.14159265358979</ns0:Longitude><ns0:GPSTimestamp>2001-12-17T09:30:47Z</ns0:GPSTimestamp><ns0:EventTimestamp>2001-12-17T09:30:47Z</ns0:EventTimestamp><ns0:EventTimeZone>EST</ns0:EventTimeZone><ns0:Value>0.6</ns0:Value></ns0:TriggeringEventInformation><ns0:Alert><ns0:AlertTimestamp>2017-04-24T18:09:03.954-04:00</ns0:AlertTimestamp><ns0:AlertMessage>
+The	following	WER	Rule(s)	have	fired:	[	WER3		WER5		WER4		WER2		WER8	]
+,	the	device	readings	(last	is	last)	are:	[	2.5	4.5	1.5	4.0	2.0	2.7	3.0	4.0	5.0	-2.0	-1.7	-1.7	1.3	1.2	1.1	1.0	0.9	0.8	0.7	0.6]
+,	the	device	readings	(first	is	last,	for	excel)	are:	[	0.6	0.7	0.8	0.9	1.0	1.1	1.2	1.3	-1.7	-1.7	-2.0	5.0	4.0	3.0	2.7	2.0	4.0	1.5	4.5	2.5]
+meanValue:[2.915],	stdDevValue:[0.9840972352471337],	operationMode:	Monitoring
+Transaction	elapsed	0	Milli	Seconds,	start:[1493071743954,	End:[1493071743954]
+</ns0:AlertMessage><ns0:AboveBelowMean>N/A</ns0:AboveBelowMean><ns0:Trend>N/A</ns0:Trend></ns0:Alert></ns0:SensorTelemetryAlert>
